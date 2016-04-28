@@ -57,12 +57,19 @@
 			<caption>Click MicroFlow</caption>
 			<category>Behaviour</category>
 			<description>If set the MF will be called on click on the Progress Bar</description>
-                        <returnType type="Void"/>
+				<returnType type="Void"/>
 		</property>
-                <property key="classBar" type="string" required="false">
-			<caption>Class bar</caption>
-			<category>Common</category>
-			<description>CSS class of the bar</description>
-		</property>                
+		<property key="classBar" type="enumeration" required="true" defaultValue="none">
+			<caption>Progress bar style</caption>
+			<category>Display</category>
+			<description>The styling and color of the progress bar using Bootstrap classes.</description>
+			<enumerationValues>
+				<enumerationValue key="none">None</enumerationValue>
+				<enumerationValue key="success">Success</enumerationValue>
+				<enumerationValue key="info">Info</enumerationValue>
+				<enumerationValue key="warning">Warning</enumerationValue>
+				<enumerationValue key="danger">Danger</enumerationValue>
+			</enumerationValues>
+		</property>              
 	</properties>
 </widget>

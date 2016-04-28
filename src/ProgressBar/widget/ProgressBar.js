@@ -33,7 +33,7 @@ require(["dojo/dom-style", "dojo/html", "dojo/dom-class", "dojo/on"],
                 width: 0,
                 textColorSwitch: 50,
                 onclickMf: "",
-                classBar: ""
+                classBar: "none"
             },
 
             templatePath: require.toUrl("ProgressBar/widget/ui/ProgressBar.html"),
@@ -52,6 +52,9 @@ require(["dojo/dom-style", "dojo/html", "dojo/dom-class", "dojo/on"],
 
             postCreate: function() {
                 // Things that needs be done before start of widget
+                if (this.classBar != "none")
+                    domClass.add(this.barNode, "progress-bar-" + this.classBar);
+                
                 this.buildProgressBar();
                 this.actLoaded();
             },

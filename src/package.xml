@@ -2,10 +2,10 @@
 <package xmlns="http://www.mendix.com/package/1.0/">
 	<clientModule name="Progress Bar" version="1.2.0" xmlns="http://www.mendix.com/clientModule/1.0/">
 		<widgetFiles>
-			<widgetFile path="ProgressBar/ProgressBar.xml"/>
+			<widgetFile path="BootstrapProgressBar/BootstrapProgressBar.xml"/>
 		</widgetFiles>
 		<files>
-			<file path="ProgressBar/"/>
+			<file path="BootstrapProgressBar/"/>
 		</files>
 	</clientModule>
 </package>

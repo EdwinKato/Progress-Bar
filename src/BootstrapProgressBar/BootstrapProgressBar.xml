@@ -10,7 +10,7 @@
   LAD1PmMczQsMAAEGACNuS4UbtbU3AAAAAElFTkSuQmCC
   </icon>
 	<properties>
-		<property key="progressAtt" type="attribute">
+		<property key="progressAttribute" type="attribute">
 			<caption>Progress attribute</caption>
 			<category>Data source</category>
 			<description>The attribute that contains the progress percentage.</description>
@@ -19,7 +19,7 @@
 				<attributeType name="Float"/>
 			</attributeTypes>
 		</property>
-		<property key="bootstrapStyleAtt" type="attribute" required="false">
+		<property key="bootstrapStyleAttribute" type="attribute" required="false">
 			<caption>Bootstrap Style</caption>
 			<category>Data source</category>
 			<description>Value of attribute should be: info, warning, danger, success. Alternatively use the 'Class bar' property set styling</description>
@@ -53,7 +53,7 @@
 				<enumerationValue key="animated">animated</enumerationValue>
 			</enumerationValues>
 		</property>
-		<property key="onclickMf" type="microflow" required="false" >
+		<property key="onclickMicroflow" type="microflow" required="false" >
 			<caption>Click MicroFlow</caption>
 			<category>Behaviour</category>
 			<description>If set the MF will be called on click on the Progress Bar</description>

@@ -5,7 +5,6 @@ import { render } from "react-dom";
 
 import { OnClickProps, ProgressBar } from "./components/ProgressBar";
 
-
 class BootstrapProgressBar extends WidgetBase {
 
     private progressAttribute: string;
@@ -93,7 +92,7 @@ class BootstrapProgressBar extends WidgetBase {
 
 let dojoBootstrapProgressBar = dojoDeclare(
     "BootstrapProgressBar.widget.BootstrapProgressBar",
-    [ WidgetBase ],
+    [WidgetBase],
     (function (Source: any) {
         let result: any = {};
         for (let i in Source.prototype) {

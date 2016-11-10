@@ -1,3 +1,6 @@
+import { DOM, createElement } from "react";
+import { shallow } from 'enzyme'; // Enzyme is a JavaScript Testing utility for React that 
+// makes it easier to assert, manipulate, and traverse your React Components' output.
 import { ProgressBar } from "./../components/ProgressBar";
 
 describe('example test', function () {
@@ -5,17 +8,3 @@ describe('example test', function () {
         expect("foo").toBe("foo");
     });
 });
-
-describe("with no no context", () => {
-        it("should lookup context", () => {
-            //
-        });
-
-        it("should not display a progress", () => {
-            //
-        });
-
-        it("should center to the default value", () => {
-            //
-        });
-    });

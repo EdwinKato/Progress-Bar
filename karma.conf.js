@@ -6,7 +6,7 @@ Object.assign(webpackConfig, {
 
 webpackConfig.externals.push("react/lib/ExecutionEnvironment");
 webpackConfig.externals.push("react/lib/ReactContext");
-webpackConfig.externals.push("react/addons");
+// webpackConfig.externals.push("react/addons");
 webpackConfig.externals.push("jsdom");
 
 module.exports = function(config) {

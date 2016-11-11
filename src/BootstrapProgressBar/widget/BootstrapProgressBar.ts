@@ -7,6 +7,7 @@ import { OnClickProps, ProgressBar } from "./components/ProgressBar";
 
 class BootstrapProgressBar extends WidgetBase {
 
+    // Parameters configured from modeler
     private progressAttribute: string;
     private bootstrapStyleAttribute: string;
     private barType: string;
@@ -14,42 +15,27 @@ class BootstrapProgressBar extends WidgetBase {
     private textColorSwitch: number;
     private onclickMicroflow: string;
 
+    // Internal variables
     private contextObject: mendix.lib.MxObject;
-    private handles: any[];
-    private value: number;
+    private handles: number[];
+    private value: number = 0;
 
     postCreate() {
         this.handles = [];
         this.updateRendering();
     }
 
-    update(object: mendix.lib.MxObject, callback?: Function) {
+    update(object: mendix.lib.MxObject, callback ? : Function) {
         this.contextObject = object;
-        this.updateRendering(callback);
         this._resetSubscriptions();
-    }
+        this.updateRendering();
 
-    private updateRendering(callback?: Function) {
-        logger.debug(this.id + ".updateRendering");
-        if (this.contextObject) {
-            this.value = Math.round(parseInt(this.contextObject.get(this.progressAttribute).toString(), 10));
-            let barstyle: string = ((this.bootstrapStyleAttribute)) ?
-                (this.contextObject.get(this.bootstrapStyleAttribute)).toString() : "";
-
-            render(createElement(ProgressBar, {
-                barType: this.barType,
-                bootstrapStyle: barstyle,
-                colorSwitch: this.textColorSwitch,
-                label: this.description,
-                microflowProps: this.createOnClickProps(),
-                progressAttributeValue: (this.value) ? this.value : 0
-            }), this.domNode);
-        }
-        if (typeof callback === "function") {
+        if (callback) {
             callback();
         }
     }
-    private _unsubscribe() {
+
+    unsubscribe() {
         if (this.handles) {
             for (let handle of this.handles) {
                 mx.data.unsubscribe(handle);
@@ -57,8 +43,34 @@ class BootstrapProgressBar extends WidgetBase {
             this.handles = [];
         }
     }
+
+    createOnClickProps(): OnClickProps {
+        return ({
+            applyto: "selection",
+            guid: (this.contextObject) ? this.contextObject.getGuid() : "",
+            microflow: this.onclickMicroflow,
+            widgetId: this.id
+        });
+    }
+
+    private updateRendering() {
+        this.value = (this.contextObject) ?
+            Math.round(parseInt(this.contextObject.get(this.progressAttribute).toString(), 10)) : 0;
+        let barstyle: string = (this.contextObject && this.bootstrapStyleAttribute) ?
+            (this.contextObject.get(this.bootstrapStyleAttribute)).toString() : "";
+
+        render(createElement(ProgressBar, {
+            barType: this.barType,
+            bootstrapStyle: barstyle,
+            colorSwitch: this.textColorSwitch,
+            label: this.description,
+            microflowProps: this.createOnClickProps(),
+            progressAttributeValue: (this.value) ? this.value : 0
+        }), this.domNode);
+    }
+
     private _resetSubscriptions() {
-        this._unsubscribe();
+        this.unsubscribe();
         if (this.contextObject) {
             this.handles.push(mx.data.subscribe({
                 callback: (guid) => this.updateRendering(),
@@ -77,23 +89,11 @@ class BootstrapProgressBar extends WidgetBase {
             }));
         }
     }
-
-    public createOnClickProps(): OnClickProps {
-        return (
-            {
-                applyto: "selection",
-                guid: this.contextObject.getGuid(),
-                microflow: this.onclickMicroflow,
-                widgetId: this.id
-            }
-        );
-    }
 }
 
 let dojoBootstrapProgressBar = dojoDeclare(
-    "BootstrapProgressBar.widget.BootstrapProgressBar",
-    [WidgetBase],
-    (function (Source: any) {
+    "BootstrapProgressBar.widget.BootstrapProgressBar", [WidgetBase],
+    (function(Source: any) {
         let result: any = {};
         for (let i in Source.prototype) {
             if (i !== "constructor" && Source.prototype.hasOwnProperty(i)) {
@@ -101,4 +101,5 @@ let dojoBootstrapProgressBar = dojoDeclare(
             }
         }
         return result;
-    } (BootstrapProgressBar)));
+    }(BootstrapProgressBar))
+);

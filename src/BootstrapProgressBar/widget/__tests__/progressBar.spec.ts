@@ -1,25 +1,65 @@
 import { DOM, createElement } from "react";
-import { shallow } from "enzyme";
-import { ProgressBar, ProgressBarProps } from "./../components/ProgressBar";
 
-describe("progressBar", () => {
-    const renderWidget = (props: ProgressBarProps) => shallow(createElement(ProgressBar));
-    it("should render as div", () => {
-        const bar = renderWidget({});
-        expect(bar).toMatchStructure(
+import { ProgressBar, ProgressBarProps } from "./../components/ProgressBar";
+import { ShallowWrapper, shallow } from "enzyme";
+
+describe("ProgressBar Component", () => {
+
+    let progressBar: ShallowWrapper<ProgressBarProps, any>;
+    let clickCount = 0;
+    let onClick = () => clickCount++;
+
+    beforeEach(() => {
+        progressBar = shallow(
+            createElement(ProgressBar, {
+                barType: "striped",
+                bootstrapStyle: "",
+                colorSwitch: 50,
+                label: "progress",
+                progressAttributeValue: 23
+            }));
+    });
+
+    // Structural tests
+    it("has a class progress", () => {
+        expect(progressBar.hasClass("progress")).toBe(true);
+    });
+
+    it("renders out as a div element", () => {
+        console.log(progressBar.debug());
+        expect(progressBar).toMatchStructure(
             DOM.div({})
         );
     });
 
-    it("renders children when passed in", () => {
-        //
+    it("has inner div element with class progress-bar", () => {
+        expect(progressBar.childAt(0)).toMatchStructure(
+            DOM.div({ className: "progress-bar" })
+        );
     });
 
-    it("render with class", () => {
-        //   expect(renderWidget).toHaveClass("progress");
+    it("has a class progressbar-text-contract added if value is less than switch color value", () => {
+        expect(progressBar.find(".progressbar-text-contract").length).toEqual(1);
     });
 
-    it("simulates click events", () => {
-        //
+    it("progressbar-text-contract is not added if value is less than switch color value", () => {
+        const progressBarComponent = shallow(createElement(ProgressBar, { progressAttributeValue: 23 }));
+
+        expect(progressBarComponent.find(".progressbar-text-contract").length).toEqual(0);
     });
+
+    it("renders the progress text correctly", () => {
+        expect(progressBar.childAt(0).text()).toEqual("23%progress");
+    });
+
+    // Behavioral tests
+    it("fires the onclick event", () => {
+        let childElement = shallow(DOM.div({ onClick }));
+        expect(clickCount).toBe(0);
+
+        childElement.simulate("click");
+
+        expect(clickCount).toBe(1);
+    });
+
 });

@@ -91,9 +91,8 @@ class BootstrapProgressBar extends WidgetBase {
     }
 }
 
-let dojoBootstrapProgressBar = dojoDeclare(
-    "BootstrapProgressBar.widget.BootstrapProgressBar", [ WidgetBase ],
-    (function(Source: any) {
+dojoDeclare(
+    "BootstrapProgressBar.widget.BootstrapProgressBar", [ WidgetBase ], (function(Source: any) {
         let result: any = {};
         for (let i in Source.prototype) {
             if (i !== "constructor" && Source.prototype.hasOwnProperty(i)) {

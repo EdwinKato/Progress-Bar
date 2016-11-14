@@ -25,7 +25,7 @@ class BootstrapProgressBar extends WidgetBase {
         this.updateRendering();
     }
 
-    update(object: mendix.lib.MxObject, callback ?: Function) {
+    update(object: mendix.lib.MxObject, callback?: Function) {
         this.contextObject = object;
         this._resetSubscriptions();
         this.updateRendering();
@@ -92,7 +92,7 @@ class BootstrapProgressBar extends WidgetBase {
 }
 
 dojoDeclare(
-    "BootstrapProgressBar.widget.BootstrapProgressBar", [ WidgetBase ], (function(Source: any) {
+    "BootstrapProgressBar.widget.BootstrapProgressBar", [WidgetBase], (function (Source: any) {
         let result: any = {};
         for (let i in Source.prototype) {
             if (i !== "constructor" && Source.prototype.hasOwnProperty(i)) {
@@ -100,5 +100,5 @@ dojoDeclare(
             }
         }
         return result;
-    }(BootstrapProgressBar))
+    } (BootstrapProgressBar))
 );

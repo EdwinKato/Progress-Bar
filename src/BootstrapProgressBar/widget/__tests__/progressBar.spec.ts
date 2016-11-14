@@ -44,11 +44,10 @@ describe("ProgressBar Component", () => {
 
     it("progressbar-text-contract is not added if value is less than switch color value", () => {
         const progressBarComponent = shallow(createElement(ProgressBar, { progressAttributeValue: 23 }));
-
         expect(progressBarComponent.find(".progressbar-text-contract").length).toEqual(0);
     });
 
-    it("renders the progress text correctly", () => {
+    it("renders the progress label", () => {
         expect(progressBar.childAt(0).text()).toEqual("23%progress");
     });
 
@@ -56,9 +55,7 @@ describe("ProgressBar Component", () => {
     it("fires the onclick event", () => {
         let childElement = shallow(DOM.div({ onClick }));
         expect(clickCount).toBe(0);
-
         childElement.simulate("click");
-
         expect(clickCount).toBe(1);
     });
 

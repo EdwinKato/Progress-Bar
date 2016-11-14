@@ -19,7 +19,6 @@ export interface ProgressBarProps {
 export function ProgressBar(props: ProgressBarProps) {
     let defaultValue = 100;
     let progressValue = props.progressAttributeValue > defaultValue ? defaultValue : props.progressAttributeValue;
-
     let progressClass: string;
 
     if (progressValue < props.colorSwitch) {

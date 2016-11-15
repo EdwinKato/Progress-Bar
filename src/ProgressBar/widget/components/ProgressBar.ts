@@ -22,7 +22,7 @@ export function ProgressBar(props: ProgressBarProps) {
     let progressClass: string;
 
     if (progressValue < props.colorSwitch) {
-        progressClass = " progressbar-text-contract";
+        progressClass = " progressbar-text-contrast";
     } else {
         progressClass = "";
     }

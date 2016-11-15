@@ -1,6 +1,6 @@
 import { DOM, createElement } from "react";
 
-import { ProgressBar, ProgressBarProps } from "./../components/ProgressBar";
+import { ProgressBar, ProgressBarProps } from "./../ProgressBar";
 import { ShallowWrapper, shallow } from "enzyme";
 
 describe("ProgressBar Component", () => {
@@ -38,13 +38,13 @@ describe("ProgressBar Component", () => {
         );
     });
 
-    it("has a class progressbar-text-contract added if value is less than switch color value", () => {
-        expect(progressBar.find(".progressbar-text-contract").length).toEqual(1);
+    it("has a class progressbar-text-contrast added if value is less than switch color value", () => {
+        expect(progressBar.find(".progressbar-text-contrast").length).toEqual(1);
     });
 
-    it("progressbar-text-contract is not added if value is less than switch color value", () => {
+    it("progressbar-text-contrast is not added if value is less than switch color value", () => {
         const progressBarComponent = shallow(createElement(ProgressBar, { progressAttributeValue: 23 }));
-        expect(progressBarComponent.find(".progressbar-text-contract").length).toEqual(0);
+        expect(progressBarComponent.find(".progressbar-text-contrast").length).toEqual(0);
     });
 
     it("renders the progress label", () => {

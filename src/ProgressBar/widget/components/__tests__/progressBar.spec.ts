@@ -7,13 +7,14 @@ import { ProgressBar, ProgressBarProps } from "./../ProgressBar";
 describe("ProgressBar", () => {
 
     let progressBar: ShallowWrapper<ProgressBarProps, any>;
-    let clickCount = 0;
+    let clickCount: number;
     const onClick = () => clickCount++;
 
     beforeEach(() => {
+        clickCount = 0;
         progressBar = shallow(
             createElement(ProgressBar, {
-                barType: "striped",
+                barType: "animated",
                 bootstrapStyle: "",
                 colorSwitch: 50,
                 label: "progress",
@@ -37,18 +38,16 @@ describe("ProgressBar", () => {
         );
     });
 
+    it("should not have contrast color after a threshold", () => {
+        progressBar = shallow(
+            createElement(ProgressBar, { colorSwitch: 70, progressAttributeValue: 87 }));
+        expect(progressBar.hasClass("progressbar-text-contrast")).toBe(false);
+    });
+
     it("should have contrast color before a threshold", () => {
-        expect(progressBar.find(".progressbar-text-contrast").length).toEqual(1);
-    });
-
-    it("Should not add progressbar-text-contrast class if value is greater than switch color value", () => {
-        const progressBarComponent = shallow(createElement(ProgressBar, { progressAttributeValue: 87, colorSwitch: 70 }));
-        expect(progressBarComponent.find(".progressbar-text-contrast").length).toEqual(0);
-    });
-
-    it("Should add progressbar-text-contrast class if value is less than switch color value", () => {
-        // const progressBarComponent = shallow(createElement(ProgressBar, { progressAttributeValue: 77 }));
-        // expect(progressBarComponent.find(".progressbar-text-contrast").length).toEqual(0);
+        progressBar = shallow(
+            createElement(ProgressBar, { colorSwitch: 70, progressAttributeValue: 50 }));
+        expect(progressBar.hasClass("progressbar-text-contrast")).toBe(true);
     });
 
     it("should render the progress label", () => {
@@ -56,15 +55,71 @@ describe("ProgressBar", () => {
     });
 
     it("should have bar style striped", () => {
-       expect(progressBar.find(".progress-bar-striped").length).toEqual(1);
+        progressBar = shallow(
+            createElement(ProgressBar, { barType: "striped", progressAttributeValue: 50 }));
+        expect(progressBar.childAt(0).hasClass("progress-bar-striped")).toBe(true);
     });
 
-    it("should have bar style striped and animated", () => {
-       expect(progressBar.find(".progress-bar-striped").length).toEqual(1);
+    it("should not have bar style striped", () => {
+        progressBar = shallow(
+            createElement(ProgressBar, { barType: "", progressAttributeValue: 50 }));
+        expect(progressBar.childAt(0).hasClass("progress-bar-striped")).toBe(false);
     });
 
     it("should have bar style animated", () => {
-        expect(progressBar.hasClass(".active")).toBe(true);
+        expect(progressBar.childAt(0).hasClass("active")).toBe(true);
+    });
+
+    it("should not have bar style animated", () => {
+        expect(progressBar.childAt(0).hasClass("active")).toBe(true);
+    });
+
+    it("Should have contextual class success", () => {
+        progressBar = shallow(
+            createElement(ProgressBar, { bootstrapStyle: "success", progressAttributeValue: 50 }));
+        expect(progressBar.childAt(0).hasClass("progress-bar-success")).toBe(true);
+    });
+
+    it("Should not have contextual class success", () => {
+        progressBar = shallow(
+            createElement(ProgressBar, { bootstrapStyle: "", progressAttributeValue: 50 }));
+        expect(progressBar.childAt(0).hasClass("progress-bar-success")).toBe(false);
+    });
+
+    it("Should have contextual class info", () => {
+        progressBar = shallow(
+            createElement(ProgressBar, { bootstrapStyle: "info", progressAttributeValue: 50 }));
+        expect(progressBar.childAt(0).hasClass("progress-bar-info")).toBe(true);
+    });
+
+    it("Should not have contextual class info", () => {
+        progressBar = shallow(
+            createElement(ProgressBar, { bootstrapStyle: "", progressAttributeValue: 50 }));
+        expect(progressBar.childAt(0).hasClass("progress-bar-info")).toBe(false);
+    });
+
+    it("Should have contextual class warning", () => {
+        progressBar = shallow(
+            createElement(ProgressBar, { bootstrapStyle: "warning", progressAttributeValue: 50 }));
+        expect(progressBar.childAt(0).hasClass("progress-bar-warning")).toBe(true);
+    });
+
+    it("Should not have contextual class warning", () => {
+        progressBar = shallow(
+            createElement(ProgressBar, { bootstrapStyle: "", progressAttributeValue: 50 }));
+        expect(progressBar.childAt(0).hasClass("progress-bar-warning")).toBe(false);
+    });
+
+    it("Should have contextual class danger", () => {
+        progressBar = shallow(
+            createElement(ProgressBar, { bootstrapStyle: "danger", progressAttributeValue: 50 }));
+        expect(progressBar.childAt(0).hasClass("progress-bar-danger")).toBe(true);
+    });
+
+    it("Should not have contextual class danger", () => {
+        progressBar = shallow(
+            createElement(ProgressBar, { bootstrapStyle: "", progressAttributeValue: 50 }));
+        expect(progressBar.childAt(0).hasClass("progress-bar-danger")).toBe(false);
     });
 
     describe("events", () => {
@@ -74,6 +129,14 @@ describe("ProgressBar", () => {
             childElement.simulate("click");
             expect(clickCount).toBe(1);
         });
+
+        it("should fire onClick again", () => {
+            let childElement = shallow(DOM.div({ onClick }));
+            expect(clickCount).toBe(0);
+            childElement.simulate("click");
+            expect(clickCount).toBe(1);
+        });
+
     });
 
 });

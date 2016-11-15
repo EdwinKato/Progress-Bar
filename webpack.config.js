@@ -11,17 +11,17 @@ module.exports = {
         library: "ProgressBar.widget.ProgressBar"
     },
     resolve: {
-        extensions: ["", ".ts", ".js", ".json"]
+        extensions: [ "", ".ts", ".js", ".json" ]
     },
     errorDetails: true,
     module: {
         loaders: [
-            { test: /\.ts?$/, loaders: ["ts-loader"] },
+            { test: /\.ts?$/, loaders: [ "ts-loader" ] },
             { test: /\.json$/, loader: "json" }
         ]
     },
     devtool: "source-map",
-    externals: ["mxui/widget/_WidgetBase", "dojo/_base/declare"],
+    externals: [ "mxui/widget/_WidgetBase", "dojo/_base/declare" ],
     plugins: [
         new CopyWebpackPlugin([
             { from: "src/**/*.js" },

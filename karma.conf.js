@@ -12,7 +12,7 @@ webpackConfig.externals.push("jsdom");
 module.exports = function(config) {
     config.set({
         basePath: "",
-        frameworks: ["jasmine"],
+        frameworks: [ "jasmine" ],
         files: [
             { pattern: "tests/**/*.ts", watched: false, included: false, served: false },
             { pattern: "src/**/*.ts", watched: false, included: false, served: false },
@@ -20,16 +20,16 @@ module.exports = function(config) {
         ],
         exclude: [],
         preprocessors: {
-            "tests/test-index.js": ["webpack"]
+            "tests/test-index.js": [ "webpack" ]
         },
         webpack: webpackConfig,
         webpackServer: { noInfo: true },
-        reporters: ["progress"],
+        reporters: [ "progress" ],
         port: 9876,
         colors: true,
         logLevel: config.LOG_INFO,
         autoWatch: true,
-        browsers: ["Chrome"],
+        browsers: [ "Chrome" ],
         singleRun: false,
         concurrency: Infinity
     })

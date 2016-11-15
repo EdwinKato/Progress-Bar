@@ -1,12 +1,12 @@
 {
-    "rulesDirectory": ["node_modules/tslint-eslint-rules/dist/rules"],
+    "rulesDirectory": [ "node_modules/tslint-eslint-rules/dist/rules" ],
     "extends": "tslint:latest",
     "rules": {
         "class-name": true,
-        "comment-format": [true, "check-space"],
+        "comment-format": [ true, "check-space" ],
         "eofline": true,
         "indent": [true, "spaces"],
-        "member-ordering": [true, "variables-before-functions"],
+        "member-ordering": [ true, "variables-before-functions" ],
         "no-arg": true,
         "no-bitwise": true,
         "no-conditional-assignment": true,
@@ -31,9 +31,9 @@
             "check-open-brace",
             "check-whitespace"
         ],
-        "quotemark": [true, "double"],
-        "semicolon": [true, "always"],
-        "triple-equals": [true, "allow-null-check"],
+        "quotemark": [ true, "double" ],
+        "semicolon": [ true, "always" ],
+        "triple-equals": [ true, "allow-null-check" ],
         "typedef-whitespace": [
             true, {
                 "call-signature": "nospace",
@@ -43,7 +43,7 @@
                 "variable-declaration": "nospace"
             }
         ],
-        "variable-name": [true, "ban-keywords"],
+        "variable-name": [ true, "ban-keywords" ],
         "whitespace": [
             true,
             "check-branch",
@@ -53,8 +53,8 @@
             "check-separator",
             "check-type"
         ],
-        "interface-name": [false, "always-prefix"],
-        "no-multi-spaces": [true],
+        "interface-name": [ false, "always-prefix" ],
+        "no-multi-spaces": [ true ],
         "no-extra-semi": true,
         "no-irregular-whitespace": true,
         "no-duplicate-case": true,
@@ -67,16 +67,16 @@
         "no-regex-spaces": true,
         "no-invalid-regexp": true,
         "valid-typeof": true,
-        "array-bracket-spacing": [true, "always"],
-        "block-spacing": [true, "always"],
+        "array-bracket-spacing": [ true, "always" ],
+        "block-spacing": [ true, "always" ],
         "brace-style": [
             true,
             "1tbs", {
                 "allowSingleLine": true
             }
         ],
-        "object-curly-spacing": [true, "always"],
-        "trailing-comma": [true, { "multiline": "never", "singleline": "never" }],
+        "object-curly-spacing": [ true, "always" ],
+        "trailing-comma": [ true, { "multiline": "never", "singleline": "never" } ],
         "member-access": false
     }
 }

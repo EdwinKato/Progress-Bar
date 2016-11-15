@@ -16,7 +16,7 @@
             </attributeTypes>
         </property>
         <property key="bootstrapStyleAttribute" type="attribute" required="false">
-            <caption>Bootstrap Style</caption>
+            <caption>Bootstrap style</caption>
             <category>Data source</category>
             <description>Value of attribute should be: info, warning, danger, success. Alternatively use the 'Class bar' property set styling</description>
             <attributeTypes>

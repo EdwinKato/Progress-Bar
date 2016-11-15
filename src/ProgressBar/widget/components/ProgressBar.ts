@@ -67,7 +67,7 @@ export function ProgressBar(props: ProgressBarProps) {
                 },
                 style: divStyle
             },
-                progressValue + "%" + props.label
+                progressValue + "% " + props.label
             )
         )
     );

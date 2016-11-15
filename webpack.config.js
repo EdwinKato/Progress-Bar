@@ -2,13 +2,13 @@ var webpack = require("webpack");
 var CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
-    entry: "./src/BootstrapProgressBar/widget/BootstrapProgressBar.ts",
+    entry: "./src/ProgressBar/widget/ProgressBar.ts",
     output: {
         path: __dirname + "/dist/tmp",
-        filename: "src/BootstrapProgressBar/widget/BootstrapProgressBar.js",
+        filename: "src/ProgressBar/widget/ProgressBar.js",
         libraryTarget: "umd",
         umdNamedDefine: true,
-        library: "BootstrapProgressBar.widget.BootstrapProgressBar"
+        library: "ProgressBar.widget.ProgressBar"
     },
     resolve: {
         extensions: ["", ".ts", ".js", ".json"]
@@ -21,7 +21,7 @@ module.exports = {
         ]
     },
     devtool: "source-map",
-    externals: ["mxui/widget/_WidgetBase", "dojo/_base/declare" ],
+    externals: ["mxui/widget/_WidgetBase", "dojo/_base/declare"],
     plugins: [
         new CopyWebpackPlugin([
             { from: "src/**/*.js" },

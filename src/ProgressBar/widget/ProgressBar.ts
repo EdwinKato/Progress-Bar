@@ -3,9 +3,9 @@ import * as WidgetBase from "mxui/widget/_WidgetBase";
 import { createElement } from "react";
 import { render } from "react-dom";
 
-import { OnClickProps, ProgressBar } from "./components/ProgressBar";
+import { OnClickProps, ProgressBar as ProgressBarComponent } from "./components/ProgressBar";
 
-class BootstrapProgressBar extends WidgetBase {
+class ProgressBar extends WidgetBase {
 
     // Parameters configured from modeler
     private progressAttribute: string;
@@ -59,7 +59,7 @@ class BootstrapProgressBar extends WidgetBase {
         let barstyle: string = (this.contextObject && this.bootstrapStyleAttribute) ?
             (this.contextObject.get(this.bootstrapStyleAttribute)).toString() : "";
 
-        render(createElement(ProgressBar, {
+        render(createElement(ProgressBarComponent, {
             barType: this.barType,
             bootstrapStyle: barstyle,
             colorSwitch: this.textColorSwitch,
@@ -92,7 +92,8 @@ class BootstrapProgressBar extends WidgetBase {
 }
 
 dojoDeclare(
-    "BootstrapProgressBar.widget.BootstrapProgressBar", [WidgetBase], (function (Source: any) {
+    "ProgressBar.widget.ProgressBar", [ WidgetBase ],
+    (function (Source: any) {
         let result: any = {};
         for (let i in Source.prototype) {
             if (i !== "constructor" && Source.prototype.hasOwnProperty(i)) {
@@ -100,5 +101,5 @@ dojoDeclare(
             }
         }
         return result;
-    } (BootstrapProgressBar))
+    } (ProgressBar))
 );

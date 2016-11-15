@@ -18,6 +18,7 @@
   },
   "devDependencies": {
     "@types/big.js": "0.0.31",
+    "@types/classnames": "0.0.32",
     "@types/core-js": "^0.9.34",
     "@types/dojo": "^1.9.35",
     "@types/enzyme": "^2.4.36",
@@ -53,7 +54,6 @@
     "webpack-dev-server": "^1.16.2"
   },
   "dependencies": {
-    "@types/classnames": "0.0.32",
     "classnames": "^2.2.5",
     "react": "^15.3.2",
     "react-dom": "^15.3.2"

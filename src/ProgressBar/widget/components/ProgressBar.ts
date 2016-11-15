@@ -54,7 +54,7 @@ export function ProgressBar(props: ProgressBarProps) {
                         mx.data.action({
                             error: (error) => {
                                 mx.ui.error(`Error while executing MicroFlow: 
-                        ${props.microflowProps.microflow}: ${error.message}`);
+                            ${props.microflowProps.microflow}: ${error.message}`);
                             },
                             params: {
                                 actionname: props.microflowProps.microflow,

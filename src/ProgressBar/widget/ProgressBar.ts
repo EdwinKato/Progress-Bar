@@ -48,8 +48,7 @@ class ProgressBar extends WidgetBase {
         return ({
             applyto: "selection",
             guid: (this.contextObject) ? this.contextObject.getGuid() : "",
-            microflow: this.onclickMicroflow,
-            widgetId: this.id
+            microflow: this.onclickMicroflow
         });
     }
 

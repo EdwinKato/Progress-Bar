@@ -4,7 +4,6 @@ export interface OnClickProps {
     microflow: string;
     guid: string;
     applyto: string;
-    widgetId: string;
 }
 
 export interface ProgressBarProps {

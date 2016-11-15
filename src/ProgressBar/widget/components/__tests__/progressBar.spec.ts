@@ -1,7 +1,8 @@
+import { ShallowWrapper, shallow } from "enzyme";
 import { DOM, createElement } from "react";
 
 import { ProgressBar, ProgressBarProps } from "./../ProgressBar";
-import { ShallowWrapper, shallow } from "enzyme";
+
 
 describe("ProgressBar Component", () => {
 

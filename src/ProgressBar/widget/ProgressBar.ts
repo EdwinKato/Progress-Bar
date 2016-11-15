@@ -18,30 +18,27 @@ class ProgressBar extends WidgetBase {
     // Internal variables
     private contextObject: mendix.lib.MxObject;
     private handles: number[];
-    private value: number = 0;
+    private value: number;
 
     postCreate() {
         this.handles = [];
         this.updateRendering();
+        this.value = 0;
     }
 
     update(object: mendix.lib.MxObject, callback?: Function) {
         this.contextObject = object;
-        this._resetSubscriptions();
+        this.resetSubscriptions();
         this.updateRendering();
 
-        if (callback) {
-            callback();
-        }
+        if (callback) { callback(); }
     }
 
     unsubscribe() {
-        if (this.handles) {
-            for (let handle of this.handles) {
-                mx.data.unsubscribe(handle);
-            }
-            this.handles = [];
+        for (let handle of this.handles) {
+            mx.data.unsubscribe(handle);
         }
+        this.handles = [];
     }
 
     createOnClickProps(): OnClickProps {
@@ -53,10 +50,12 @@ class ProgressBar extends WidgetBase {
     }
 
     private updateRendering() {
-        this.value = (this.contextObject) ?
-            Math.round(parseInt(this.contextObject.get(this.progressAttribute).toString(), 10)) : 0;
-        let barstyle: string = (this.contextObject && this.bootstrapStyleAttribute) ?
-            (this.contextObject.get(this.bootstrapStyleAttribute)).toString() : "";
+        this.value = (this.contextObject)
+            ? Math.round(parseInt(this.contextObject.get(this.progressAttribute) as string, 10))
+            : 0;
+        let barstyle: string = (this.contextObject && this.bootstrapStyleAttribute)
+            ? (this.contextObject.get(this.bootstrapStyleAttribute)) as string
+            : "";
 
         render(createElement(ProgressBarComponent, {
             barType: this.barType,
@@ -68,7 +67,7 @@ class ProgressBar extends WidgetBase {
         }), this.domNode);
     }
 
-    private _resetSubscriptions() {
+    private resetSubscriptions() {
         this.unsubscribe();
         if (this.contextObject) {
             this.handles.push(mx.data.subscribe({
@@ -80,7 +79,6 @@ class ProgressBar extends WidgetBase {
                 callback: (guid, attr, attrValue) => this.updateRendering(),
                 guid: this.contextObject.getGuid()
             }));
-
             this.handles.push(mx.data.subscribe({
                 attr: this.bootstrapStyleAttribute,
                 callback: (guid, attr, attrValue) => this.updateRendering(),

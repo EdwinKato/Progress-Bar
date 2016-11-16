@@ -17,11 +17,9 @@ class ProgressBar extends WidgetBase {
 
     // Internal variables
     private contextObject: mendix.lib.MxObject;
-    private handles: number[];
     private value: number;
 
     postCreate() {
-        this.handles = [];
         this.value = 0;
         this.updateRendering();
     }
@@ -32,13 +30,6 @@ class ProgressBar extends WidgetBase {
         this.updateRendering();
 
         if (callback) { callback(); }
-    }
-
-    unsubscribe() {
-        for (let handle of this.handles) {
-            mx.data.unsubscribe(handle);
-        }
-        this.handles = [];
     }
 
     createOnClickProps(): OnClickProps {
@@ -67,22 +58,22 @@ class ProgressBar extends WidgetBase {
     }
 
     private resetSubscriptions() {
-        this.unsubscribe();
+        this.unsubscribeAll();
         if (this.contextObject) {
-            this.handles.push(mx.data.subscribe({
+            this.subscribe({
                 callback: (guid) => this.updateRendering(),
                 guid: this.contextObject.getGuid()
-            }));
-            this.handles.push(mx.data.subscribe({
+            });
+            this.subscribe({
                 attr: this.progressAttribute,
                 callback: (guid, attr, attrValue) => this.updateRendering(),
                 guid: this.contextObject.getGuid()
-            }));
-            this.handles.push(mx.data.subscribe({
+            });
+            this.subscribe({
                 attr: this.bootstrapStyleAttribute,
                 callback: (guid, attr, attrValue) => this.updateRendering(),
                 guid: this.contextObject.getGuid()
-            }));
+            });
         }
     }
 }

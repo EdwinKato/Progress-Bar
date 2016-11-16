@@ -13,7 +13,7 @@ export interface ProgressBarProps {
     bootstrapStyle?: string;
     microflowProps?: OnClickProps;
     colorSwitch: number;
-    progressAttributeValue: number;
+    percentage: number;
 }
 
 const progressClass = (bootstrapStyle: string, barType: string) => {
@@ -45,15 +45,15 @@ const progressValue = (progressAttributeValue: number) => {
 export const ProgressBar = (props: ProgressBarProps) =>
     DOM.div({
         className: classNames("progress",
-            { "mx-progressbar-text-contrast": progressValue(props.progressAttributeValue) < props.colorSwitch })
+            { "mx-progressbar-text-contrast": progressValue(props.percentage) < props.colorSwitch })
     },
         DOM.div(
             {
                 className: progressClass(props.bootstrapStyle, props.barType),
                 onClick: () => executeMicroflow(props.microflowProps.microflow, props.microflowProps.guid),
-                style: { width: progressValue(props.progressAttributeValue) + "%" }
+                style: { width: progressValue(props.percentage) + "%" }
             },
-            progressValue(props.progressAttributeValue) + "% " + props.label)
+            progressValue(props.percentage) + "% " + props.label)
     );
 
 const executeMicroflow = (actionname: string, guids: string) => {

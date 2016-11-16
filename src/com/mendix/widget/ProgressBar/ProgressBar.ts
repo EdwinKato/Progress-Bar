@@ -53,7 +53,7 @@ class ProgressBar extends WidgetBase {
             colorSwitch: this.textColorSwitch,
             label: this.description,
             microflowProps: this.createOnClickProps(),
-            progressAttributeValue: this.value || 0
+            percentage: this.value || 0
         }), this.domNode);
     }
 

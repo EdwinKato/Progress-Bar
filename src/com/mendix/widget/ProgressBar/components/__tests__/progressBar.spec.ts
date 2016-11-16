@@ -18,7 +18,7 @@ describe("ProgressBar", () => {
                 bootstrapStyle: "",
                 colorSwitch: 50,
                 label: "progress",
-                progressAttributeValue: 23
+                percentage: 23
             }));
         progressBar = progressBarWrapper.childAt(0);
     });
@@ -48,13 +48,13 @@ describe("ProgressBar", () => {
     describe("label color ", () => {
 
         it("should not be black after a threshold", () => {
-            progressBarWrapper.setProps({ colorSwitch: 78, progressAttributeValue: 89 });
+            progressBarWrapper.setProps({ colorSwitch: 78, percentage: 89 });
             console.log(progressBar.debug());
             expect(progressBar.hasClass("progressbar-text-contrast")).toBe(false);
         });
 
         it("should be black before a threshold", () => {
-            progressBarWrapper.setProps({ colorSwitch: 78, progressAttributeValue: 60 });
+            progressBarWrapper.setProps({ colorSwitch: 78, percentage: 60 });
             expect(progressBar.hasClass("progressbar-text-contrast")).toBe(true);
         });
 
@@ -63,12 +63,12 @@ describe("ProgressBar", () => {
     describe("striped ", () => {
 
         it("should have bar style striped", () => {
-            progressBarWrapper.setProps({ colorSwitch: 78, progressAttributeValue: 89, barType: "striped" });
+            progressBarWrapper.setProps({ colorSwitch: 78, percentage: 89, barType: "striped" });
             expect(progressBar.hasClass("progress-bar-striped")).toBe(true);
         });
 
         it("should not have bar style striped", () => {
-            progressBarWrapper.setProps({ colorSwitch: 78, progressAttributeValue: 89, barType: "" });
+            progressBarWrapper.setProps({ colorSwitch: 78, percentage: 89, barType: "" });
             expect(progressBar.hasClass("progress-bar-striped")).toBe(false);
         });
 
@@ -89,12 +89,12 @@ describe("ProgressBar", () => {
     describe("success ", () => {
 
         it("Should have contextual class success", () => {
-            progressBarWrapper.setProps({ bootstrapStyle: "success", colorSwitch: 78, progressAttributeValue: 89 });
+            progressBarWrapper.setProps({ bootstrapStyle: "success", colorSwitch: 78, percentage: 89 });
             expect(progressBar.hasClass("progress-bar-success")).toBe(true);
         });
 
         it("Should not have contextual class success", () => {
-            progressBarWrapper.setProps({ bootstrapStyle: "", colorSwitch: 78, progressAttributeValue: 89 });
+            progressBarWrapper.setProps({ bootstrapStyle: "", colorSwitch: 78, percentage: 89 });
             expect(progressBar.hasClass("progress-bar-success")).toBe(false);
         });
 
@@ -104,12 +104,12 @@ describe("ProgressBar", () => {
     describe("info ", () => {
 
         it("Should have contextual class info", () => {
-            progressBarWrapper.setProps({ bootstrapStyle: "info", colorSwitch: 78, progressAttributeValue: 89 });
+            progressBarWrapper.setProps({ bootstrapStyle: "info", colorSwitch: 78, percentage: 89 });
             expect(progressBar.hasClass("progress-bar-info")).toBe(true);
         });
 
         it("Should not have contextual class info", () => {
-            progressBarWrapper.setProps({ bootstrapStyle: "", colorSwitch: 78, progressAttributeValue: 89 });
+            progressBarWrapper.setProps({ bootstrapStyle: "", colorSwitch: 78, percentage: 89 });
             expect(progressBar.hasClass("progress-bar-info")).toBe(false);
         });
 
@@ -118,12 +118,12 @@ describe("ProgressBar", () => {
     describe("warning ", () => {
 
         it("Should have contextual class warning", () => {
-            progressBarWrapper.setProps({ bootstrapStyle: "warning", colorSwitch: 78, progressAttributeValue: 89 });
+            progressBarWrapper.setProps({ bootstrapStyle: "warning", colorSwitch: 78, percentage: 89 });
             expect(progressBar.hasClass("progress-bar-warning")).toBe(true);
         });
 
         it("Should not have contextual class warning", () => {
-            progressBarWrapper.setProps({ bootstrapStyle: "", colorSwitch: 78, progressAttributeValue: 89 });
+            progressBarWrapper.setProps({ bootstrapStyle: "", colorSwitch: 78, percentage: 89 });
             expect(progressBar.hasClass("progress-bar-warning")).toBe(false);
         });
 
@@ -132,12 +132,12 @@ describe("ProgressBar", () => {
     describe("danger ", () => {
 
         it("Should have contextual class danger", () => {
-            progressBarWrapper.setProps({ bootstrapStyle: "danger", colorSwitch: 78, progressAttributeValue: 89 });
+            progressBarWrapper.setProps({ bootstrapStyle: "danger", colorSwitch: 78, percentage: 89 });
             expect(progressBar.hasClass("progress-bar-danger")).toBe(true);
         });
 
         it("Should not have contextual class danger", () => {
-            progressBarWrapper.setProps({ bootstrapStyle: "", colorSwitch: 78, progressAttributeValue: 89 });
+            progressBarWrapper.setProps({ bootstrapStyle: "", colorSwitch: 78, percentage: 89 });
             expect(progressBar.hasClass("progress-bar-danger")).toBe(false);
         });
 

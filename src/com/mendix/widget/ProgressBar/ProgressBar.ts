@@ -88,7 +88,7 @@ class ProgressBar extends WidgetBase {
 }
 
 dojoDeclare(
-    "ProgressBar.widget.ProgressBar", [ WidgetBase ],
+    "com.mendix.widget.ProgressBar.ProgressBar", [ WidgetBase ],
     (function (Source: any) {
         let result: any = {};
         for (let i in Source.prototype) {

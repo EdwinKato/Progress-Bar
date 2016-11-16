@@ -2,13 +2,13 @@ var webpack = require("webpack");
 var CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
-    entry: "./src/ProgressBar/widget/ProgressBar.ts",
+    entry: "./src/com/mendix/widget/ProgressBar/ProgressBar.ts",
     output: {
         path: __dirname + "/dist/tmp",
-        filename: "src/ProgressBar/widget/ProgressBar.js",
+        filename: "src/com/mendix/widget/ProgressBar/ProgressBar.js",
         libraryTarget: "umd",
         umdNamedDefine: true,
-        library: "ProgressBar.widget.ProgressBar"
+        library: "com.mendix.widget.ProgressBar.ProgressBar"
     },
     resolve: {
         extensions: [ "", ".ts", ".js", ".json" ]

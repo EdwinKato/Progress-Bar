@@ -36,17 +36,14 @@ export function ProgressBar(props: ProgressBarProps) {
 
     return (
         DOM.div({
-            className: classNames({ progress: true, "progressbar-text-contrast": progressValue < props.colorSwitch })
-        },
+            className: classNames({ progress: true, "progressbar-text-contrast": progressValue < props.colorSwitch })},
             DOM.div({
                 className: progressClass,
                 onClick: () => {
                     executeMicroflow(props.microflowProps);
                 },
                 style: { width: progressValue + "%" }
-            },
-                progressValue + "% " + props.label
-            )
+            }, progressValue + "% " + props.label)
         )
     );
 }
@@ -55,8 +52,7 @@ function executeMicroflow(microflowProperties: OnClickProps) {
     if (microflowProperties.microflow !== "") {
         mx.data.action({
             error: (error) => {
-                mx.ui.error(`Error while executing MicroFlow: 
-                        ${microflowProperties.microflow}: ${error.message}`);
+                mx.ui.error(`Error while executing MicroFlow: ${microflowProperties.microflow}: ${error.message}`);
             },
             params: {
                 actionname: microflowProperties.microflow,

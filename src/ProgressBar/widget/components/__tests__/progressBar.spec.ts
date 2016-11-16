@@ -3,7 +3,6 @@ import { DOM, createElement } from "react";
 
 import { ProgressBar, ProgressBarProps } from "./../ProgressBar";
 
-
 describe("ProgressBar", () => {
 
     let progressBar: ShallowWrapper<ProgressBarProps, any>;

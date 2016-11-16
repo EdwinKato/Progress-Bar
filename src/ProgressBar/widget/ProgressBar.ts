@@ -56,7 +56,6 @@ class ProgressBar extends WidgetBase {
         let barstyle: string = (this.contextObject && this.bootstrapStyleAttribute)
             ? (this.contextObject.get(this.bootstrapStyleAttribute)) as string
             : "";
-
         render(createElement(ProgressBarComponent, {
             barType: this.barType,
             bootstrapStyle: barstyle,

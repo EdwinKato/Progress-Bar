@@ -8,8 +8,8 @@ export interface OnClickProps {
 }
 
 export interface ProgressBarProps {
-    barType: string;
-    label: string;
+    barType?: string;
+    label?: string;
     bootstrapStyle?: string;
     microflowProps?: OnClickProps;
     colorSwitch: number;

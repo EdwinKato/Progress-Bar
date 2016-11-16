@@ -1,5 +1,5 @@
+import * as classNames from "classnames";
 import { DOM } from "react";
-import classNames = require("classnames");
 
 export interface OnClickProps {
     microflow: string;
@@ -8,57 +8,65 @@ export interface OnClickProps {
 }
 
 export interface ProgressBarProps {
-    barType?: string;
-    label?: string;
+    barType: string;
+    label: string;
     bootstrapStyle?: string;
     microflowProps?: OnClickProps;
-    colorSwitch?: number;
-    progressAttributeValue?: number;
+    colorSwitch: number;
+    progressAttributeValue: number;
 }
 
-export function ProgressBar(props: ProgressBarProps) {
-    let maximumValue = 100;
-    let minimumValue = 0;
-    let progressValue = props.progressAttributeValue > maximumValue
-        ? maximumValue
-        : (props.progressAttributeValue < minimumValue)
-            ? minimumValue
-            : props.progressAttributeValue;
-    let progressClass = classNames([
-        { "progress-bar": true },
-        { "progress-bar-info": (props.bootstrapStyle === "info") },
-        { "progress-bar-danger": (props.bootstrapStyle === "danger") },
-        { "progress-bar-warning": (props.bootstrapStyle === "warning") },
-        { "progress-bar-success": (props.bootstrapStyle === "success") },
-        { "progress-bar-striped": (props.barType === "striped") },
-        { "progress-bar-striped active": (props.barType === "animated") }
-    ]);
-
-    return (
-        DOM.div({
-            className: classNames({ progress: true, "progressbar-text-contrast": progressValue < props.colorSwitch })},
-            DOM.div({
-                className: progressClass,
-                onClick: () => {
-                    executeMicroflow(props.microflowProps);
-                },
-                style: { width: progressValue + "%" }
-            }, progressValue + "% " + props.label)
-        )
+const progressClass = (bootstrapStyle: string, barType: string) => {
+    return classNames("progress-bar",
+        {
+            "progress-bar-info": bootstrapStyle === "info",
+            "progress-bar-danger": bootstrapStyle === "danger",
+            "progress-bar-warning": bootstrapStyle === "warning",
+            "progress-bar-success": bootstrapStyle === "success",
+            "progress-bar-striped": barType === "striped",
+            "progress-bar-striped active": barType === "animated"
+        }
     );
-}
+};
 
-function executeMicroflow(microflowProperties: OnClickProps) {
-    if (microflowProperties.microflow !== "") {
+const progressValue = (progressAttributeValue: number) => {
+    const maximumValue = 100;
+    const minimumValue = 0;
+
+    if (progressAttributeValue > maximumValue) {
+        return maximumValue;
+    } else if (progressAttributeValue < minimumValue) {
+        return minimumValue;
+    }
+
+    return progressAttributeValue;
+};
+
+export const ProgressBar = (props: ProgressBarProps) =>
+    DOM.div({
+        className: classNames("progress",
+            { "mx-progressbar-text-contrast": progressValue(props.progressAttributeValue) < props.colorSwitch })
+    },
+        DOM.div(
+            {
+                className: progressClass(props.bootstrapStyle, props.barType),
+                onClick: () => executeMicroflow(props.microflowProps.microflow, props.microflowProps.guid),
+                style: { width: progressValue(props.progressAttributeValue) + "%" }
+            },
+            progressValue(props.progressAttributeValue) + "% " + props.label)
+    );
+
+const executeMicroflow = (actionname: string, guids: string) => {
+    if (actionname) {
         mx.data.action({
             error: (error) => {
-                mx.ui.error(`Error while executing MicroFlow: ${microflowProperties.microflow}: ${error.message}`);
+                mx.ui.error(`Error while executing MicroFlow: ${actionname}: ${error.message}`);
             },
             params: {
-                actionname: microflowProperties.microflow,
+                actionname,
                 applyto: "selection",
-                guids: [ microflowProperties.guid ]
+                guids: [ guids ]
             }
         });
     }
-}
+};

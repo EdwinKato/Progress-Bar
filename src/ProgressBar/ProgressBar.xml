@@ -37,7 +37,7 @@
         <property key="textColorSwitch" type="integer" defaultValue="50">
             <caption>Colour switch value</caption>
             <category>Display</category>
-            <description>The percentage at which the text gets a contract colour (class) to black to white.</description>
+            <description>The percentage at which the text gets a contrast colour (class) from black to white.</description>
         </property>
         <property key="barType" type="enumeration" required="true" defaultValue="default">
             <caption>Type</caption>
@@ -50,15 +50,15 @@
             </enumerationValues>
         </property>
         <property key="onclickMicroflow" type="microflow" required="false">
-            <caption>Click MicroFlow</caption>
+            <caption>Click microFlow</caption>
             <category>Behaviour</category>
-            <description>If set the MF will be called on click on the Progress Bar</description>
+            <description>If set the microflow will be called on click on the progress bar</description>
             <returnType type="Void" />
         </property>
         <property key="classBar" type="enumeration" required="true" defaultValue="none">
             <caption>Progress bar style</caption>
             <category>Display</category>
-            <description>The styling and color of the progress bar using Bootstrap classes.</description>
+            <description>The color of the progress bar using Bootstrap classes.</description>
             <enumerationValues>
                 <enumerationValue key="none">None</enumerationValue>
                 <enumerationValue key="success">Success</enumerationValue>

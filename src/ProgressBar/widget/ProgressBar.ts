@@ -22,11 +22,11 @@ class ProgressBar extends WidgetBase {
 
     postCreate() {
         this.handles = [];
-        this.updateRendering();
         this.value = 0;
+        this.updateRendering();
     }
 
-    update(object: mendix.lib.MxObject, callback?: Function) {
+    update(object: mendix.lib.MxObject, callback: Function) {
         this.contextObject = object;
         this.resetSubscriptions();
         this.updateRendering();
@@ -53,7 +53,7 @@ class ProgressBar extends WidgetBase {
         this.value = (this.contextObject)
             ? Math.round(parseInt(this.contextObject.get(this.progressAttribute) as string, 10))
             : 0;
-        let barstyle: string = (this.contextObject && this.bootstrapStyleAttribute)
+        let barstyle = (this.contextObject && this.bootstrapStyleAttribute)
             ? (this.contextObject.get(this.bootstrapStyleAttribute)) as string
             : "";
         render(createElement(ProgressBarComponent, {
@@ -62,7 +62,7 @@ class ProgressBar extends WidgetBase {
             colorSwitch: this.textColorSwitch,
             label: this.description,
             microflowProps: this.createOnClickProps(),
-            progressAttributeValue: (this.value) ? this.value : 0
+            progressAttributeValue: this.value || 0
         }), this.domNode);
     }
 

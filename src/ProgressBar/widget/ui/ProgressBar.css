@@ -1,11 +1,11 @@
-.progress-text {
+.mx-progress-text {
     white-space: nowrap;
 }
 
-.progressbar-text-contrast .progress-bar {
+.mx-progressbar-text-contrast .mx-progress-bar {
     color: black;
 }
 
-.progress-link {
+.mx-progress-link {
     cursor: pointer;
 }

@@ -59,14 +59,14 @@ export function findDifference(expected: ElementStructure | ElementStructure[], 
 
         if (isJasmineAny(expectedVal)) {
             if (!expectedVal.asymmetricMatch(actualVal)) {
-                return `${msgPrefix} property ${prop} to match ${expectedVal.jasmineToString()} `
-                    + `but it was '${jasmine.pp(actualVal)}'`;
+                return `${msgPrefix} property ${prop} to match ${ expectedVal.jasmineToString() } `
+                    + `but it was '${ jasmine.pp(actualVal) }'`;
             }
         } else if (prop === "className") {
             const difference = compareClasses(expectedVal, actualVal);
             if (difference) return difference;
         } else if (!jasmine.matchersUtil.equals(expectedVal, actualVal)) {
-            return `${msgPrefix} property ${prop} to equal '${jasmine.pp(expectedVal)}' `
+            return `${ msgPrefix } property ${ prop } to equal '${jasmine.pp(expectedVal) }' `
                 + `but it was '${jasmine.pp(actualVal)}'`;
         }
         return null;
@@ -79,7 +79,7 @@ export function findDifference(expected: ElementStructure | ElementStructure[], 
         const missingClasses = expectedClasses.filter(c => actualClasses.indexOf(c) === -1);
 
         if (missingClasses.length) {
-            return `${msgPrefix} classes ${missingClasses.join(", ")}`;
+            return `${ msgPrefix } classes ${ missingClasses.join(", ") }`;
         }
         return null;
     }
@@ -89,12 +89,12 @@ export function findDifference(expected: ElementStructure | ElementStructure[], 
             const childDiff = findDifference(expectedJson.children[i], actualJson.children[i], true);
             if (childDiff != null) {
                 return actualJson.children.length !== expectedJson.children.length
-                    ? `${msgPrefix} child ${toString(expectedJson.children[i])}, but it has only ${actualJson.children.map(toString)}`
+                    ? `${ msgPrefix } child ${ toString(expectedJson.children[i]) }, but it has only ${ actualJson.children.map(toString) }`
                     : childDiff;
             }
         }
         if (actualJson.children.length > expectedJson.children.length) {
-            return `${msgPrefix} exactly ${expectedJson.children.length} children, `
+            return `${ msgPrefix } exactly ${ expectedJson.children.length } children, `
                 + `but it has ${actualJson.children.length}. The first extra child is:\n`
                 + toString(actualJson.children[expectedJson.children.length]);
         }
@@ -109,8 +109,8 @@ export function findDifference(expected: ElementStructure | ElementStructure[], 
                 if (findDifference(expectedChild, actualJson.children[actualIndex], false) == null) break;
             }
             if (actualIndex === actualJson.children.length) {
-                return `${msgPrefix} a child like ${toString(expectedChild)} `
-                    + `but it is missing in ${actualJson.children.map(toString).join(", ")}`;
+                return `${ msgPrefix } a child like ${ toString(expectedChild) } `
+                    + `but it is missing in ${ actualJson.children.map(toString).join(", ") }`;
             }
         }
         return null;
@@ -118,7 +118,7 @@ export function findDifference(expected: ElementStructure | ElementStructure[], 
 
     function toString(structure: ElementStructure | ElementStructure[]): string {
         if (isJasmineAny(structure)) return structure.jasmineToString();
-        if (typeof structure === "string" || structure == null) return `text '${structure}'`;
+        if (typeof structure === "string" || structure == null) return `text '${ structure }'`;
         if (Array.isArray(structure)) return "[" + structure.map(toString).join(", ") + "]";
         const json = structure as ElementJson;
         return "element " + json.type + ("className" in json.props ? "." + json.props["className"].trim().replace(/\s+/g, ".") : "");

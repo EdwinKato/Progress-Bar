@@ -1,10 +1,10 @@
 ### Description
 
-Display progress based on attribute value from 0 to 100
+Displays progress based on value from 0 to 100
 
 ## Features
 
-Different bar styles
+Different bar styles, 
 Different bar colors
 
 ### Dependencies
@@ -13,7 +13,7 @@ Mendix 6
 
 ### limitations
 
-If there exists any limitations in rendering and animation, it is based Bootstrap (version 3.0.2 in Mendix 6)
+If there are any limitations in rendering and animation, it is based Bootstrap (version 3.0.2 in Mendix 6)
 
 ### Bugs & Issues
 

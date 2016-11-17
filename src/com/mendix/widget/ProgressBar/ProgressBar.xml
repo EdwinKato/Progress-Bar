@@ -12,13 +12,13 @@
             <description>The attribute that contains the progress percentage.</description>
             <attributeTypes>
                 <attributeType name="Integer" />
-                <attributeType name="Float" />
+                <attributeType name="Decimal" />
             </attributeTypes>
         </property>
         <property key="bootstrapStyleAttribute" type="attribute" required="false">
             <caption>Bootstrap style</caption>
             <category>Data source</category>
-            <description>Value of attribute should be: info, warning, danger, success. Alternatively use the 'Class bar' property set styling</description>
+            <description>Value of attribute should be: info, warning, danger, success. Alternatively use the 'class bar' property set styling</description>
             <attributeTypes>
                 <attributeType name="Enum" />
                 <attributeType name="String" />
@@ -58,7 +58,7 @@
         <property key="classBar" type="enumeration" required="true" defaultValue="none">
             <caption>Progress bar style</caption>
             <category>Display</category>
-            <description>The color of the progress bar using Bootstrap classes.</description>
+            <description>The color of the progress bar using bootstrap classes.</description>
             <enumerationValues>
                 <enumerationValue key="none">None</enumerationValue>
                 <enumerationValue key="success">Success</enumerationValue>

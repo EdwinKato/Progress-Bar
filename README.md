@@ -4,7 +4,7 @@ Displays progress based on value from 0 to 100
 
 ## Features
 
-Different bar types that is; default, striped, animated 
+Different bar types that is; default, striped, animated and
 Different bar colors that is; success, info, warning, danger
 
 ### Dependencies

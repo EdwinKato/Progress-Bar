@@ -34,7 +34,6 @@ class ProgressBar extends WidgetBase {
 
     createOnClickProps(): OnClickProps {
         return ({
-            applyto: "selection",
             guid: (this.contextObject) ? this.contextObject.getGuid() : "",
             microflow: this.onclickMicroflow
         });

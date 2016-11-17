@@ -1,10 +1,10 @@
-import * as classNames from "classnames";
 import { DOM } from "react";
+
+import * as classNames from "classnames";
 
 export interface OnClickProps {
     microflow: string;
     guid: string;
-    applyto: string;
 }
 
 export interface ProgressBarProps {
@@ -58,9 +58,9 @@ export const ProgressBar = (props: ProgressBarProps) =>
 
 const executeMicroflow = (actionname: string, guids: string) => {
     if (actionname) {
-        mx.data.action({
+        window.mx.data.action({
             error: (error) => {
-                mx.ui.error(`Error while executing MicroFlow: ${actionname}: ${error.message}`);
+                window.mx.ui.error(`Error while executing MicroFlow: ${actionname}: ${error.message}`);
             },
             params: {
                 actionname,

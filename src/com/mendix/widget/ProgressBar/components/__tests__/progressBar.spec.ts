@@ -4,7 +4,6 @@ import { DOM, createElement } from "react";
 import { ProgressBar, ProgressBarProps } from "../ProgressBar";
 
 describe("Progress bar", () => {
-
     let progressBarWrapper: ShallowWrapper<ProgressBarProps, any>;
     let progressBar: ShallowWrapper<ProgressBarProps, any>;
     let clickCount: number;
@@ -38,9 +37,7 @@ describe("Progress bar", () => {
         );
     });
 
-
     describe("label color", () => {
-
         it("should be black before a threshold", () => {
             expect(progressBarWrapper.hasClass("mx-progressbar-text-contrast")).toBe(true);
         });
@@ -50,11 +47,9 @@ describe("Progress bar", () => {
             progressBar = progressBarWrapper.childAt(0);
             expect(progressBarWrapper.hasClass("mx-progressbar-text-contrast")).toBe(false);
         });
-
     });
 
     describe("bootstrap class", () => {
-
         it("should be success if set style is success", () => {
             expect(progressBar.hasClass("progress-bar-success")).toBe(true);
         });
@@ -94,11 +89,9 @@ describe("Progress bar", () => {
         it("should not be danger if set style is not danger", () => {
             expect(progressBar.hasClass("progress-bar-danger")).toBe(false);
         });
-
     });
 
     describe("type", () => {
-
         it("should be striped if set type is striped", () => {
             progressBarWrapper.setProps({ barType: "striped", colorSwitch: 78, percentage: 89 });
             progressBar = progressBarWrapper.childAt(0);
@@ -121,7 +114,6 @@ describe("Progress bar", () => {
             progressBar = progressBarWrapper.childAt(0);
             expect(progressBar.hasClass("active")).toBe(false);
         });
-
     });
 
     it("should respond to click event", () => {
@@ -130,5 +122,4 @@ describe("Progress bar", () => {
         childElement.simulate("click");
         expect(clickCount).toBe(1);
     });
-
 });

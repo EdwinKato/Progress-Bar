@@ -21,7 +21,7 @@ module.exports = function(grunt) {
                 "tasks": [ "copy:source" ]
             }
         },
-
+        
         compress: {
             dist: {
                 options: {
@@ -37,7 +37,7 @@ module.exports = function(grunt) {
                 }]
             }
         },
-
+        
         copy: {
             distDeployment: {
                 files: [
@@ -55,7 +55,7 @@ module.exports = function(grunt) {
                 ]
             }
         },
-
+        
         webpack: {
             renderer: webpackConfig
         },
@@ -69,17 +69,17 @@ module.exports = function(grunt) {
             ]
         }
     });
-
+    
     grunt.loadNpmTasks("grunt-contrib-compress");
     grunt.loadNpmTasks("grunt-contrib-clean");
     grunt.loadNpmTasks("grunt-contrib-watch");
     grunt.loadNpmTasks("grunt-contrib-copy");
     grunt.loadNpmTasks("grunt-webpack");
 
-    grunt.registerTask("default", [ "clean build", "watch" ]);
+    grunt.registerTask("default", [ "clean build", "watch" ]);    
     grunt.registerTask(
         "clean build",
-        "Compiles all the assets and copies the files to the build directory.", [ "clean:build", "webpack", "compress:dist", "copy:mpk" ]
+        "Compiles all the assets and copies the files to the build directory.", [ "clean:build", "webpack" ,"compress:dist", "copy:mpk" ]
     );
     grunt.registerTask("build", [ "clean build" ]);
 };

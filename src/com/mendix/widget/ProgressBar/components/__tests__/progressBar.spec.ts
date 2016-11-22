@@ -1,26 +1,21 @@
 import { ShallowWrapper, shallow } from "enzyme";
 import { DOM, createElement } from "react";
 
-import { ProgressBar, ProgressBarProps } from "../ProgressBar";
+import { MicroFlowProps, ProgressBar, ProgressBarProps } from "../ProgressBar";
+
+import { MxDataMock, MxUiMock } from "../../../../../../../tests/mocks/Mendix";
 
 describe("Progress bar", () => {
-    let progressBarWrapper: ShallowWrapper<ProgressBarProps, any>;
-    let progressBar: ShallowWrapper<ProgressBarProps, any>;
-    let clickCount: number;
+    const renderProgressBar = (props: ProgressBarProps) => shallow(createElement(ProgressBar, props));
+    const colorSwitch = 50;
+    const percentage = 23;
+    const progressBarWrapper = renderProgressBar({ colorSwitch, percentage });
+    const progressBar = progressBarWrapper.childAt(0);
 
-    const onClick = () => clickCount++;
-
-    beforeEach(() => {
-        clickCount = 0;
-        progressBarWrapper = shallow(
-            createElement(ProgressBar, {
-                barType: "animated",
-                bootstrapStyle: "success",
-                colorSwitch: 50,
-                label: "progress",
-                percentage: 23
-            }));
-        progressBar = progressBarWrapper.childAt(0);
+    beforeAll(() => {
+        window.mx = window.mx || {};
+        window.mx.ui = MxUiMock.prototype;
+        window.mx.data = MxDataMock.prototype;
     });
 
     it("wrapper should have the class progress", () => {
@@ -28,42 +23,62 @@ describe("Progress bar", () => {
     });
 
     it("should render the progress label", () => {
-        expect(progressBar.text()).toEqual("23% progress");
+        const bar = renderProgressBar({ percentage, colorSwitch, label: "progress" });
+
+        expect(bar.text()).toEqual("23% progress");
+    });
+
+    it("should render the progress label 0% when percentage is negative", () => {
+        const bar = renderProgressBar({ colorSwitch, label: "progress", percentage: -10 }).childAt(0);
+
+        expect(bar.text()).toEqual("0% progress");
+    });
+
+    it("should render the progress label 100% when percentage is over 100", () => {
+        const bar = renderProgressBar({ colorSwitch, label: "progress", percentage: 200 }).childAt(0);
+
+        expect(bar.text()).toEqual("100% progress");
     });
 
     it("has class progress-bar", () => {
-        expect(progressBarWrapper.childAt(0)).toMatchStructure(
+         expect(progressBar.hasClass("progress-bar")).toBe(true);
+    });
+
+    it("has structure", () => {
+        expect(progressBar).toMatchStructure(
             DOM.div({ className: "progress-bar" })
         );
     });
 
     describe("label color", () => {
         it("should be black before a threshold", () => {
-            expect(progressBarWrapper.hasClass("mx-progressbar-text-contrast")).toBe(true);
+            expect(progressBarWrapper.hasClass("widget-progressbar-text-contrast")).toBe(true);
         });
 
         it("should not be black after a threshold", () => {
             progressBarWrapper.setProps({ colorSwitch: 78, percentage: 89 });
-            progressBar = progressBarWrapper.childAt(0);
-            expect(progressBarWrapper.hasClass("mx-progressbar-text-contrast")).toBe(false);
+
+            expect(progressBarWrapper.hasClass("widget-progressbar-text-contrast")).toBe(false);
         });
     });
 
     describe("bootstrap class", () => {
         it("should be success if set style is success", () => {
-            expect(progressBar.hasClass("progress-bar-success")).toBe(true);
+            const bar = renderProgressBar({ bootstrapStyle: "success", percentage, colorSwitch }).childAt(0);
+
+            expect(bar.hasClass("progress-bar-success")).toBe(true);
         });
 
         it("should not be success if set style is not success", () => {
-            progressBarWrapper.setProps({ bootstrapStyle: "", colorSwitch: 78, percentage: 89 });
-            progressBar = progressBarWrapper.childAt(0);
-            expect(progressBar.hasClass("progress-bar-success")).toBe(false);
+            const bar = renderProgressBar({ bootstrapStyle: "", percentage, colorSwitch }).childAt(0);
+
+            expect(bar.hasClass("progress-bar-success")).toBe(false);
         });
 
         it("should be info if set style is info", () => {
-            progressBarWrapper.setProps({ bootstrapStyle: "info", colorSwitch: 78, percentage: 89 });
-            progressBar = progressBarWrapper.childAt(0);
-            expect(progressBar.hasClass("progress-bar-info")).toBe(true);
+            const bar = renderProgressBar({ bootstrapStyle: "info", percentage, colorSwitch }).childAt(0);
+
+            expect(bar.hasClass("progress-bar-info")).toBe(true);
         });
 
         it("should not be info if set style is not info", () => {
@@ -71,9 +86,9 @@ describe("Progress bar", () => {
         });
 
         it("should be warning if set style is warning", () => {
-            progressBarWrapper.setProps({ bootstrapStyle: "warning", colorSwitch: 78, percentage: 89 });
-            progressBar = progressBarWrapper.childAt(0);
-            expect(progressBar.hasClass("progress-bar-warning")).toBe(true);
+            const bar = renderProgressBar({ bootstrapStyle: "warning", percentage, colorSwitch }).childAt(0);
+
+            expect(bar.hasClass("progress-bar-warning")).toBe(true);
         });
 
         it("should not be warning if set style is not warning", () => {
@@ -81,9 +96,9 @@ describe("Progress bar", () => {
         });
 
         it("should be danger if set style is danger", () => {
-            progressBarWrapper.setProps({ bootstrapStyle: "danger", colorSwitch: 78, percentage: 89 });
-            progressBar = progressBarWrapper.childAt(0);
-            expect(progressBar.hasClass("progress-bar-danger")).toBe(true);
+            const bar = renderProgressBar({ bootstrapStyle: "danger", percentage, colorSwitch }).childAt(0);
+
+            expect(bar.hasClass("progress-bar-danger")).toBe(true);
         });
 
         it("should not be danger if set style is not danger", () => {
@@ -93,33 +108,50 @@ describe("Progress bar", () => {
 
     describe("type", () => {
         it("should be striped if set type is striped", () => {
-            progressBarWrapper.setProps({ barType: "striped", colorSwitch: 78, percentage: 89 });
-            progressBar = progressBarWrapper.childAt(0);
-            expect(progressBar.hasClass("progress-bar-striped")).toBe(true);
+            const bar = renderProgressBar({ barType: "striped", percentage, colorSwitch }).childAt(0);
+
+            expect(bar.hasClass("progress-bar-striped")).toBe(true);
         });
 
         it("should not be striped if set type is not striped", () => {
-            progressBarWrapper.setProps({ barType: "", colorSwitch: 78, percentage: 89 });
-            progressBar = progressBarWrapper.childAt(0);
             expect(progressBar.hasClass("progress-bar-striped")).toBe(false);
         });
 
         it("should be animated if set type is animated", () => {
-            expect(progressBar.hasClass("progress-bar-striped")).toBe(true);
-            expect(progressBar.hasClass("active")).toBe(true);
+            const bar = renderProgressBar({ barType: "animated", percentage, colorSwitch }).childAt(0);
+
+            expect(bar.hasClass("progress-bar-striped")).toBe(true);
+            expect(bar.hasClass("active")).toBe(true);
         });
 
         it("should be not be animated if set type is not animated", () => {
-            progressBarWrapper.setProps({ barType: "", colorSwitch: 78, percentage: 89 });
-            progressBar = progressBarWrapper.childAt(0);
+            expect(progressBar.hasClass("progress-bar-striped")).not.toBe(true);
             expect(progressBar.hasClass("active")).toBe(false);
         });
     });
 
     it("should respond to click event", () => {
-        let childElement = shallow(DOM.div({ onClick }));
-        expect(clickCount).toBe(0);
-        childElement.simulate("click");
-        expect(clickCount).toBe(1);
+        spyOn(window.mx.data, "action").and.callThrough();
+        const microflowProps: MicroFlowProps = { actionname: "m", guid: "1" };
+        const barWrapper = renderProgressBar({ percentage, colorSwitch, microflowProps });
+        const bar = barWrapper.childAt(0);
+
+        bar.props().onClick();
+
+        expect(window.mx.data.action).toHaveBeenCalled();
+    });
+
+    it("should show error to click event", () => {
+        spyOn(window.mx.data, "action").and.callThrough();
+        spyOn(window.mx.ui, "error").and.callThrough();
+        const microflowProps: MicroFlowProps = { actionname: "no_microflow", guid: "1" };
+        const barWrapper = renderProgressBar({ percentage, colorSwitch, microflowProps });
+        const bar = barWrapper.childAt(0);
+        const errorMessage = `Error while executing MicroFlow: no_microflow: microflow does not exist`;
+
+        bar.props().onClick();
+
+        expect(window.mx.data.action).toHaveBeenCalled();
+        expect(window.mx.ui.error).toHaveBeenCalledWith(errorMessage);
     });
 });

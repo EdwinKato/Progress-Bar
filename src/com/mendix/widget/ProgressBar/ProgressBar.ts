@@ -3,7 +3,7 @@ import * as WidgetBase from "mxui/widget/_WidgetBase";
 import { createElement } from "react";
 import { render } from "react-dom";
 
-import { OnClickProps, ProgressBar as ProgressBarComponent } from "./components/ProgressBar";
+import { MicroFlowProps, ProgressBar as ProgressBarComponent, ProgressBarProps } from "./components/ProgressBar";
 
 class ProgressBar extends WidgetBase {
 
@@ -29,31 +29,18 @@ class ProgressBar extends WidgetBase {
         this.resetSubscriptions();
         this.updateRendering();
 
-        if (callback) { callback(); }
+        callback();
     }
 
-    createOnClickProps(): OnClickProps {
+   private createOnClickProps(): MicroFlowProps {
         return ({
-            guid: (this.contextObject) ? this.contextObject.getGuid() : "",
-            microflow: this.onclickMicroflow
+            guid: this.contextObject ? this.contextObject.getGuid() : "",
+            actionname: this.onclickMicroflow
         });
     }
 
     private updateRendering() {
-        this.value = (this.contextObject)
-            ? Math.round(parseInt(this.contextObject.get(this.progressAttribute) as string, 10))
-            : 0;
-        let barstyle = (this.contextObject && this.bootstrapStyleAttribute)
-            ? (this.contextObject.get(this.bootstrapStyleAttribute)) as string
-            : "";
-        render(createElement(ProgressBarComponent, {
-            barType: this.barType,
-            bootstrapStyle: barstyle,
-            colorSwitch: this.textColorSwitch,
-            label: this.description,
-            microflowProps: this.createOnClickProps(),
-            percentage: this.value || 0
-        }), this.domNode);
+        render(createElement(ProgressBarComponent, this.getProgressBarProps()), this.domNode);
     }
 
     private resetSubscriptions() {
@@ -75,8 +62,29 @@ class ProgressBar extends WidgetBase {
             });
         }
     }
+
+    private getProgressBarProps(): ProgressBarProps {
+        this.value = this.contextObject
+            ? Math.round(parseInt(this.contextObject.get(this.progressAttribute)as string, 10))
+            : 0;
+        const barstyle = this.contextObject && this.bootstrapStyleAttribute
+            ? (this.contextObject.get(this.bootstrapStyleAttribute))as string
+            : "";
+
+        return {
+            barType: this.barType,
+            bootstrapStyle: barstyle,
+            colorSwitch: this.textColorSwitch,
+            label: this.description,
+            microflowProps: this.createOnClickProps(),
+            percentage: this.value
+        };
+    }
 }
 
+// Declare widget prototype the Dojo way
+// Thanks to https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/dojo/README.md
+// tslint:disable : only-arrow-functions
 dojoDeclare(
     "com.mendix.widget.ProgressBar.ProgressBar", [ WidgetBase ],
     (function (Source: any) {

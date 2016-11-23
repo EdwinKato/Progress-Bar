@@ -1,5 +1,4 @@
 import { DOM } from "react";
-
 import * as classNames from "classnames";
 
 export interface MicroFlowProps {
@@ -16,15 +15,20 @@ export interface ProgressBarProps {
     percentage: number;
 }
 
-export const ProgressBar = (props: ProgressBarProps) => DOM.div({
-    className: classNames("progress", {
-        "widget-progressbar-text-contrast": progressValue(props.percentage) < props.colorSwitch
-    })}, DOM.div({
-    className: progressClass(props.bootstrapStyle, props.barType),
-    onClick: () => executeMicroflow(props.microflowProps.actionname, props.microflowProps.guid),
-    style: { width: progressValue(props.percentage) + "%" }},
-    progressValue(props.percentage) + "% " + props.label)
-);
+export const ProgressBar = (props: ProgressBarProps) =>
+    DOM.div({
+            className: classNames("progress", {
+                "widget-progressbar-text-contrast": progressValue(props.percentage) < props.colorSwitch
+            })
+        },
+        DOM.div({
+                className: progressClass(props.bootstrapStyle, props.barType),
+                onClick: () => executeMicroflow(props.microflowProps.actionname, props.microflowProps.guid),
+                style: { width: progressValue(props.percentage) + "%" }
+            },
+            progressValue(props.percentage) + "% " + props.label
+        )
+    );
 
 const progressClass = (bootstrapStyle: string, barType: string) => {
     return classNames("progress-bar", {
@@ -53,7 +57,7 @@ const progressValue = (progressAttributeValue: number) => {
 const executeMicroflow = (actionname: string, guids: string) => {
     window.mx.data.action({
         error: (error: Error) => {
-            window.mx.ui.error(`Error while executing MicroFlow: ${actionname}: ${error.message}`);
+            window.mx.ui.error(`Error while executing microFlow: ${actionname}: ${error.message}`);
         },
         params: {
             actionname,

@@ -16,12 +16,14 @@ export interface ProgressBarProps {
 }
 
 export const ProgressBar = (props: ProgressBarProps) =>
-    DOM.div({
+    DOM.div(
+        {
             className: classNames("progress", {
                 "widget-progressbar-text-contrast": progressValue(props.percentage) < props.colorSwitch
             })
         },
-        DOM.div({
+        DOM.div(
+            {
                 className: progressClass(props.bootstrapStyle, props.barType),
                 onClick: () => executeMicroflow(props.microflowProps.actionname, props.microflowProps.guid),
                 style: { width: progressValue(props.percentage) + "%" }
@@ -57,7 +59,7 @@ const progressValue = (progressAttributeValue: number) => {
 const executeMicroflow = (actionname: string, guids: string) => {
     window.mx.data.action({
         error: (error: Error) => {
-            window.mx.ui.error(`Error while executing microFlow: ${actionname}: ${error.message}`);
+            window.mx.ui.error(`Error while executing microflow: ${actionname}: ${error.message}`);
         },
         params: {
             actionname,

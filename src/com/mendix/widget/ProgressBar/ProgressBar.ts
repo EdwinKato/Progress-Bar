@@ -57,7 +57,6 @@ class ProgressBar extends WidgetBase {
         };
     }
 
-    // TODO test when click on bar with empty context.
     private createOnClickProps(): MicroFlowProps {
         return ({
             actionname: this.onclickMicroflow,
@@ -89,8 +88,7 @@ class ProgressBar extends WidgetBase {
 // Declare widget prototype the Dojo way
 // Thanks to https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/dojo/README.md
 // tslint:disable : only-arrow-functions
-dojoDeclare(
-    "com.mendix.widget.ProgressBar.ProgressBar", [ WidgetBase ],
+dojoDeclare("com.mendix.widget.ProgressBar.ProgressBar", [ WidgetBase ],
     (function (Source: any) {
         let result: any = {};
         for (let i in Source.prototype) {
@@ -99,5 +97,5 @@ dojoDeclare(
             }
         }
         return result;
-    } (ProgressBar))
+    }(ProgressBar))
 );

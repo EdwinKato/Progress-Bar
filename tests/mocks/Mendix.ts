@@ -89,12 +89,12 @@ export class MxDataMock implements mx.data {
         error?: (e: Error) => void,
         onValidation?: (validations: mendix.lib.ObjectValidation[]) => void,
     }, scope?: any): void {
-        if(action.params.actionname ==="no_microflow"){
-          action.error(new Error("microflow does not exist"));
+        if (action.params.actionname === "no_microflow") {
+            action.error(new Error("microflow does not exist"));
         } else {
             setTimeout(() => action.callback && action.callback(null));
         }
-     };
+    };
     commit(args: {
         mxobj: mendix.lib.MxObject,
         callback: Function,
@@ -107,47 +107,57 @@ export class MxDataMock implements mx.data {
         error: (e: Error) => void,
     }, scope?: Object): void { };
     createXPathString(arg: {
-            entity: string,
-            context: any,
-            callback: (xpath: string, allMatched: boolean) => void
-        }): void{};
-       /**
-         * Retrieves MxObjects from the Runtime. Using microflow 
-         */
-        get(args: any, scope?: Object): void{};
-        getBacktrackConstraints(metaObject: any, context: any, callback: (xpath: string, allMatched: boolean) => void): void{};
-        release(objects: mendix.lib.MxObject | mendix.lib.MxObject[]): void{};
-        remove(arg: {
-            guid?: string,
-            guids?: string[],
-            callback: Function,
-            error: (e: Error) => void
-        }, scope?: Object): void{};
-        rollback(args: {
-            mxobj: mendix.lib.MxObject;
-            callback: Function,
-            error: (e: Error) => void,
+        entity: string,
+        context: any,
+        callback: (xpath: string, allMatched: boolean) => void
+    }): void { };
+    /**
+      * Retrieves MxObjects from the Runtime. Using microflow 
+      */
+    get(args: any, scope?: Object): void { };
+    getBacktrackConstraints(metaObject: any, context: any, callback: (xpath: string, allMatched: boolean) => void): void { };
+    release(objects: mendix.lib.MxObject | mendix.lib.MxObject[]): void { };
+    remove(arg: {
+        guid?: string,
+        guids?: string[],
+        callback: Function,
+        error: (e: Error) => void
+    }, scope?: Object): void { };
+    rollback(args: {
+        mxobj: mendix.lib.MxObject;
+        callback: Function,
+        error: (e: Error) => void,
 
-        }, scope?: Object): void{ };
-        save(args: {
-            mxobj?: mendix.lib.MxObject;
-            callback?: Function,
-            error?: (e: Error) => void,
+    }, scope?: Object): void { };
+    save(args: {
+        mxobj?: mendix.lib.MxObject;
+        callback?: Function,
+        error?: (e: Error) => void,
 
-        }, scope?: Object): void{ };
-        /**
-         * Registers a callback to be invoked on changes specific entity 
-         */
-        subscribe(args: any): number{ return 0 };
-        unsubscribe(handle: number): void{};
-        update(args: {
-            guid?: string,
-            entity?: string,
-        }): void;
-        // update attribute
-        update(args: {
-            guid: string,
-            attr: string,
-        }): void{};
-        saveDocument(guid: string, name: string, params: any, blob: Blob, callback: Function, error: (error: Error) => void): void{};
+    }, scope?: Object): void { };
+    /**
+     * Registers a callback to be invoked on changes specific entity 
+     */
+    subscribe(args: any): number { return 0 };
+    unsubscribe(handle: number): void { };
+    update(args: {
+        guid?: string,
+        entity?: string,
+    }): void;
+    // update attribute
+    update(args: {
+        guid: string,
+        attr: string,
+    }): void { };
+    saveDocument(guid: string, name: string, params: any, blob: Blob, callback: Function, error: (error: Error) => void): void { };
+}
+
+export class MxLogger implements mendix.logger {
+    error(...info: any[]): void { };
+    debug(...info: any[]): void { };
+    info(...info: any[]): void { };
+    warn(...info: any[]): void { };
+    exception(...info: any[]): void { };
+    scream(...info: any[]): void { };
+
 }

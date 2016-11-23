@@ -142,6 +142,17 @@ describe("Progress bar", () => {
         } });
     });
 
+    it("should not run onclick event if action name is empty", () => {
+        spyOn(window.mx.data, "action").and.callThrough();
+        const microflowProps: MicroFlowProps = { actionname: "", guid: "1" };
+        const barWrapper = renderProgressBar({ percentage, colorSwitch, microflowProps });
+        const bar = barWrapper.childAt(0);
+
+        bar.props().onClick();
+
+        expect(window.mx.data.action).not.toHaveBeenCalled();
+    });
+
     it("should show error to click event", () => {
         spyOn(window.mx.data, "action").and.callThrough();
         spyOn(window.mx.ui, "error").and.callThrough();

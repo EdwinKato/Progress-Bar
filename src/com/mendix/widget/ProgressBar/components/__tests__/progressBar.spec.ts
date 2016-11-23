@@ -1,9 +1,9 @@
-import { ShallowWrapper, shallow } from "enzyme";
+import { shallow } from "enzyme";
 import { DOM, createElement } from "react";
 
 import { MicroFlowProps, ProgressBar, ProgressBarProps } from "../ProgressBar";
 
-import { MxDataMock, MxUiMock } from "../../../../../../../tests/mocks/Mendix";
+import { MxMock, MxDataMock, MxUiMock } from "../../../../../../../tests/mocks/Mendix";
 
 describe("Progress bar", () => {
     const renderProgressBar = (props: ProgressBarProps) => shallow(createElement(ProgressBar, props));
@@ -11,15 +11,21 @@ describe("Progress bar", () => {
     const percentage = 23;
     const progressBarWrapper = renderProgressBar({ colorSwitch, percentage });
     const progressBar = progressBarWrapper.childAt(0);
+    let mxOriginal: mx.mx;
 
     beforeAll(() => {
-        window.mx = window.mx || {};
+        mxOriginal = window.mx;
+        window.mx = MxMock.prototype;
         window.mx.ui = MxUiMock.prototype;
         window.mx.data = MxDataMock.prototype;
     });
 
-    it("wrapper should have the class progress", () => {
-        expect(progressBarWrapper.hasClass("progress")).toBe(true);
+    it("has progress bar structure", () => {
+        expect(progressBarWrapper).toMatchStructure(
+            DOM.div({ className: "progress" },
+                DOM.div({ className: "progress-bar" })
+            )
+        );
     });
 
     it("should render the progress label", () => {
@@ -38,16 +44,6 @@ describe("Progress bar", () => {
         const bar = renderProgressBar({ colorSwitch, label: "progress", percentage: 200 }).childAt(0);
 
         expect(bar.text()).toEqual("100% progress");
-    });
-
-    it("has class progress-bar", () => {
-         expect(progressBar.hasClass("progress-bar")).toBe(true);
-    });
-
-    it("has structure", () => {
-        expect(progressBar).toMatchStructure(
-            DOM.div({ className: "progress-bar" })
-        );
     });
 
     describe("label color", () => {
@@ -139,6 +135,11 @@ describe("Progress bar", () => {
         bar.props().onClick();
 
         expect(window.mx.data.action).toHaveBeenCalled();
+        expect(window.mx.data.action).toHaveBeenCalledWith({ error: jasmine.any(Function), params: {
+            actionname: microflowProps.actionname,
+            applyto: "selection",
+            guids: [ microflowProps.guid ]
+        } });
     });
 
     it("should show error to click event", () => {
@@ -147,11 +148,16 @@ describe("Progress bar", () => {
         const microflowProps: MicroFlowProps = { actionname: "no_microflow", guid: "1" };
         const barWrapper = renderProgressBar({ percentage, colorSwitch, microflowProps });
         const bar = barWrapper.childAt(0);
-        const errorMessage = `Error while executing MicroFlow: no_microflow: microflow does not exist`;
 
         bar.props().onClick();
 
         expect(window.mx.data.action).toHaveBeenCalled();
-        expect(window.mx.ui.error).toHaveBeenCalledWith(errorMessage);
+        expect(window.mx.ui.error).toHaveBeenCalledWith(
+            "Error while executing microFlow: no_microflow: microflow does not exist"
+        );
+    });
+
+    afterAll(() => {
+        window.mx = mxOriginal;
     });
 });

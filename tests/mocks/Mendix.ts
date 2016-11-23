@@ -6,14 +6,15 @@ export class MxMock implements mx.mx {
     addOnLoad(callback: Function): void { /* */ }
     login(username: string, password: string, onSuccess: Function, onError: Function): void { /* */ }
     logout(): void { /* */ }
-    data: mx.data;
+    data: MxDataMock;
     meta: mx.meta;
     parser: mx.parser;
     server: mx.server;
     session: mx.session;
-    ui: mx.ui;
+    ui: MxUiMock;
     onError(error: Error): void { /* */ }
 }
+
 export class MxUiMock implements mx.ui {
     action(
         actionname: string,
@@ -68,6 +69,7 @@ export class MxUiMock implements mx.ui {
     ): void { /* */ }
     showLogin(messageCode: number): void { /* */ }
 }
+
 export class MxDataMock implements mx.data {
     action(action: {
         params: {
@@ -89,6 +91,8 @@ export class MxDataMock implements mx.data {
     }, scope?: any): void {
         if(action.params.actionname ==="no_microflow"){
           action.error(new Error("microflow does not exist"));
+        } else {
+            setTimeout(() => action.callback && action.callback(null));
         }
      };
     commit(args: {
@@ -145,6 +149,5 @@ export class MxDataMock implements mx.data {
             guid: string,
             attr: string,
         }): void{};
-        saveDocument(guid: string,
-            name: string, params: any, blob: Blob, callback: Function, error: (error: Error) => void): void{};
+        saveDocument(guid: string, name: string, params: any, blob: Blob, callback: Function, error: (error: Error) => void): void{};
 }

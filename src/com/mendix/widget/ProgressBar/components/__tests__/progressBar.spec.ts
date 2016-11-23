@@ -153,7 +153,7 @@ describe("Progress bar", () => {
 
         expect(window.mx.data.action).toHaveBeenCalled();
         expect(window.mx.ui.error).toHaveBeenCalledWith(
-            "Error while executing microFlow: no_microflow: microflow does not exist"
+            "Error while executing microflow: no_microflow: microflow does not exist"
         );
     });
 

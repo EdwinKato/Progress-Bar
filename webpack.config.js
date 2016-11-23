@@ -17,7 +17,7 @@ module.exports = {
     errorDetails: true,
     module: {
         loaders: [
-            { test: /\.ts?$/, loader: "ts-loader" },
+            { test: /\.ts$/, loader: "ts-loader" },
             { test: /\.json$/, loader: "json" }
         ],
         postLoaders: [ {

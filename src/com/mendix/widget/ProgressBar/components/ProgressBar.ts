@@ -50,8 +50,10 @@ const progressValue = (progressAttributeValue: number) => {
     const minimumValue = 0;
 
     if (progressAttributeValue > maximumValue) {
+        window.logger.warn("Progress value passed to progress bar exceeds 100%");
         return maximumValue;
     } else if (!progressAttributeValue || progressAttributeValue < minimumValue) {
+        window.logger.warn("Progress value passed to progress bar is below 0%");
         return minimumValue;
     }
 

@@ -51,7 +51,9 @@ class ProgressBar extends WidgetBase {
             barType: this.barType,
             bootstrapStyle,
             colorSwitch: this.textColorSwitch,
-            label: this.description,
+            label: this.contextObject
+                ? this.description
+                : "",
             microflowProps: this.createOnClickProps(),
             percentage
         };

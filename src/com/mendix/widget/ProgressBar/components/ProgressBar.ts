@@ -28,7 +28,7 @@ export const ProgressBar = (props: ProgressBarProps) =>
                 onClick: () => executeMicroflow(props.microflowProps.actionname, props.microflowProps.guid),
                 style: { width: progressValue(props.percentage) + "%" }
             },
-            progressValue(props.percentage) + "% " + props.label
+            (() => progressLabel(props.label, progressValue(props.percentage)))()
         )
     );
 
@@ -49,7 +49,7 @@ const progressValue = (progressAttributeValue: number) => {
 
     if (progressAttributeValue > maximumValue) {
         return maximumValue;
-    } else if (progressAttributeValue < minimumValue) {
+    } else if (!progressAttributeValue || progressAttributeValue < minimumValue) {
         return minimumValue;
     }
 
@@ -57,14 +57,23 @@ const progressValue = (progressAttributeValue: number) => {
 };
 
 const executeMicroflow = (actionname: string, guids: string) => {
-    window.mx.data.action({
-        error: (error: Error) => {
-            window.mx.ui.error(`Error while executing microflow: ${actionname}: ${error.message}`);
-        },
-        params: {
-            actionname,
-            applyto: "selection",
-            guids: [ guids ]
-        }
-    });
+    if (actionname) {
+        window.mx.data.action({
+            error: (error: Error) => {
+                window.mx.ui.error(`Error while executing microflow: ${actionname}: ${error.message}`);
+            },
+            params: {
+                actionname,
+                applyto: "selection",
+                guids: [ guids ]
+            }
+        });
+    }
+};
+
+const progressLabel = (label: string, value: number) => {
+    if (label) {
+        return progressValue(value) + "% " + label;
+    }
+    return "";
 };

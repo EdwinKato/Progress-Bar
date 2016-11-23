@@ -1,26 +1,23 @@
 import * as dojoDeclare from "dojo/_base/declare";
 import * as WidgetBase from "mxui/widget/_WidgetBase";
 import { createElement } from "react";
-import { render } from "react-dom";
+import { render, unmountComponentAtNode } from "react-dom";
 
 import { MicroFlowProps, ProgressBar as ProgressBarComponent, ProgressBarProps } from "./components/ProgressBar";
 
 class ProgressBar extends WidgetBase {
-
     // Parameters configured from modeler
     private progressAttribute: string;
     private bootstrapStyleAttribute: string;
+    private classBar: string;
     private barType: string;
     private description: string;
     private textColorSwitch: number;
     private onclickMicroflow: string;
-
     // Internal variables
     private contextObject: mendix.lib.MxObject;
-    private value: number;
 
     postCreate() {
-        this.value = 0;
         this.updateRendering();
     }
 
@@ -32,15 +29,40 @@ class ProgressBar extends WidgetBase {
         callback();
     }
 
-   private createOnClickProps(): MicroFlowProps {
-        return ({
-            guid: this.contextObject ? this.contextObject.getGuid() : "",
-            actionname: this.onclickMicroflow
-        });
+    uninitialize(): boolean {
+        unmountComponentAtNode(this.domNode);
+
+        return true;
     }
 
     private updateRendering() {
         render(createElement(ProgressBarComponent, this.getProgressBarProps()), this.domNode);
+    }
+
+    private getProgressBarProps(): ProgressBarProps {
+        const percentage = this.contextObject
+            ? Math.round(parseInt(this.contextObject.get(this.progressAttribute)as string, 10))
+            : 0;
+        const bootstrapStyle = this.contextObject && this.bootstrapStyleAttribute
+            ? (this.contextObject.get(this.bootstrapStyleAttribute))as string
+            : this.classBar !== "none" ? this.classBar : "";
+
+        return {
+            barType: this.barType,
+            bootstrapStyle,
+            colorSwitch: this.textColorSwitch,
+            label: this.description,
+            microflowProps: this.createOnClickProps(),
+            percentage
+        };
+    }
+
+    // TODO test when click on bar with empty context.
+    private createOnClickProps(): MicroFlowProps {
+        return ({
+            actionname: this.onclickMicroflow,
+            guid: this.contextObject ? this.contextObject.getGuid() : ""
+        });
     }
 
     private resetSubscriptions() {
@@ -61,24 +83,6 @@ class ProgressBar extends WidgetBase {
                 guid: this.contextObject.getGuid()
             });
         }
-    }
-
-    private getProgressBarProps(): ProgressBarProps {
-        this.value = this.contextObject
-            ? Math.round(parseInt(this.contextObject.get(this.progressAttribute)as string, 10))
-            : 0;
-        const barstyle = this.contextObject && this.bootstrapStyleAttribute
-            ? (this.contextObject.get(this.bootstrapStyleAttribute))as string
-            : "";
-
-        return {
-            barType: this.barType,
-            bootstrapStyle: barstyle,
-            colorSwitch: this.textColorSwitch,
-            label: this.description,
-            microflowProps: this.createOnClickProps(),
-            percentage: this.value
-        };
     }
 }
 

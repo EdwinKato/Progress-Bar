@@ -16,9 +16,9 @@
             </attributeTypes>
         </property>
         <property key="bootstrapStyleAttribute" type="attribute" required="false">
-            <caption>Bootstrap style</caption>
+            <caption>Style attribute</caption>
             <category>Data source</category>
-            <description>Value of attribute should be: info, warning, danger, success. Alternatively use the 'class bar' property set styling</description>
+            <description>Value of attribute should be: info, warning, danger, success. Alternatively use the display 'Bar style' property</description>
             <attributeTypes>
                 <attributeType name="Enum" />
                 <attributeType name="String" />
@@ -44,9 +44,9 @@
             <category>Display</category>
             <description>Render the type of progress bar: default, striped or animated </description>
             <enumerationValues>
-                <enumerationValue key="default">default</enumerationValue>
-                <enumerationValue key="striped">striped</enumerationValue>
-                <enumerationValue key="animated">animated</enumerationValue>
+                <enumerationValue key="default">Default</enumerationValue>
+                <enumerationValue key="striped">Striped</enumerationValue>
+                <enumerationValue key="animated">Animated</enumerationValue>
             </enumerationValues>
         </property>
         <property key="onclickMicroflow" type="microflow" required="false">
@@ -56,9 +56,9 @@
             <returnType type="Void" />
         </property>
         <property key="classBar" type="enumeration" required="true" defaultValue="none">
-            <caption>Progress bar style</caption>
+            <caption>Bar style</caption>
             <category>Display</category>
-            <description>The color of the progress bar using bootstrap classes.</description>
+            <description>The color of the progress bar using bootstrap classes. Only used when 'Style attribute' is not set.</description>
             <enumerationValues>
                 <enumerationValue key="none">None</enumerationValue>
                 <enumerationValue key="success">Success</enumerationValue>

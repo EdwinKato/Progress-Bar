@@ -46,6 +46,24 @@ describe("Progress bar", () => {
         expect(bar.text()).toEqual("100% progress");
     });
 
+    it("should render with the set width", () => {
+        const barWrapper = renderProgressBar({ colorSwitch, label: "progress", percentage: 200, width: 120 });
+
+        expect(barWrapper).toMatchStructure(
+            DOM.div({ className: "progress" , style: { width: "120px" } }
+            )
+        );
+    });
+
+    it("should render with 100% width if passed width is equal to zero", () => {
+        const barWrapper = renderProgressBar({ colorSwitch, label: "progress", percentage: 200, width: 0 });
+
+        expect(barWrapper).toMatchStructure(
+            DOM.div({ className: "progress" , style: { width: "100%" } }
+            )
+        );
+    });
+
     describe("label color", () => {
         it("should be black before a threshold", () => {
             expect(progressBarWrapper.hasClass("widget-progressbar-text-contrast")).toBe(true);

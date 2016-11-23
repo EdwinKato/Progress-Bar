@@ -22,8 +22,7 @@ export const ProgressBar = (props: ProgressBarProps) =>
             className: classNames("progress", {
                 "widget-progressbar-text-contrast": progressValue(props.percentage) < props.colorSwitch
             }),
-            // style: { width: props.width + "%" }
-            style: { width: (() => { return (props.width === 0 ) ? "100%" : props.width + "%"; })() }
+            style: { width: (() => { return (props.width === 0 ) ? "100%" : props.width + "px"; })() }
         },
         DOM.div(
             {

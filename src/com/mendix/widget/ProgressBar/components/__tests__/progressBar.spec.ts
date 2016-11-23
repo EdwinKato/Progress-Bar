@@ -3,7 +3,7 @@ import { DOM, createElement } from "react";
 
 import { MicroFlowProps, ProgressBar, ProgressBarProps } from "../ProgressBar";
 
-import { MxMock, MxDataMock, MxUiMock } from "../../../../../../../tests/mocks/Mendix";
+import { MxDataMock, MxLogger, MxMock, MxUiMock } from "../../../../../../../tests/mocks/Mendix";
 
 describe("Progress bar", () => {
     const renderProgressBar = (props: ProgressBarProps) => shallow(createElement(ProgressBar, props));
@@ -15,6 +15,7 @@ describe("Progress bar", () => {
 
     beforeAll(() => {
         mxOriginal = window.mx;
+        window.logger = MxLogger.prototype;
         window.mx = MxMock.prototype;
         window.mx.ui = MxUiMock.prototype;
         window.mx.data = MxDataMock.prototype;

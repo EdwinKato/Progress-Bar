@@ -154,7 +154,7 @@ describe("Progress bar", () => {
         barWrapper.props().onClick();
 
         expect(window.mx.data.action).toHaveBeenCalled();
-        expect(window.mx.data.action).toHaveBeenCalledWith({ error: jasmine.any(Function), params: {
+        expect(window.mx.data.action).toHaveBeenCalledWith({ error: jasmine.any(Function), origin: undefined, params: {
             actionname: validMicroflow.name,
             applyto: "selection",
             guids: [ validMicroflow.guid ]

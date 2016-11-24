@@ -20,12 +20,12 @@ export const ProgressBar = (props: ProgressBarProps) =>
     DOM.div(
         {
             className: widgetClasses(props.percentage, props.colorSwitch, props.microflowProps.actionname),
+            onClick: () => executeMicroflow(props.microflowProps.actionname, props.microflowProps.guid),
             style: { width: props.width !== 0 ? props.width : null }
         },
         DOM.div(
             {
                 className: progressClasses(props.bootstrapStyle, props.barType),
-                onClick: () => executeMicroflow(props.microflowProps.actionname, props.microflowProps.guid),
                 style: { width: progressValue(props.percentage) + "%" }
             },
             progressLabel(props.label, progressValue(props.percentage))
@@ -66,8 +66,8 @@ const progressValue = (progressAttributeValue: number) => {
     return progressAttributeValue;
 };
 
-const executeMicroflow = (actionname: string, guids: string) => {
-    if (actionname) {
+const executeMicroflow = (actionname: string, guid: string) => {
+    if (actionname && guid) {
         window.mx.data.action({
             error: (error: Error) => {
                 window.mx.ui.error(`Error while executing microflow: ${actionname}: ${error.message}`);
@@ -75,7 +75,7 @@ const executeMicroflow = (actionname: string, guids: string) => {
             params: {
                 actionname,
                 applyto: "selection",
-                guids: [ guids ]
+                guids: [ guid ]
             }
         });
     }

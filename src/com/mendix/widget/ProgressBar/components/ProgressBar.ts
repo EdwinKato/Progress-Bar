@@ -19,23 +19,30 @@ export interface ProgressBarProps {
 export const ProgressBar = (props: ProgressBarProps) =>
     DOM.div(
         {
-            className: classNames("progress", {
-                "widget-progressbar-text-contrast": progressValue(props.percentage) < props.colorSwitch
-            }),
-            style: { width: (() => { return (props.width === 0 ) ? "100%" : props.width + "px"; })() }
+            className: widgetClasses(props.percentage, props.colorSwitch, props.microflowProps.actionname),
+            style: { width: props.width !== 0 ? props.width : null }
         },
         DOM.div(
             {
-                className: progressClass(props.bootstrapStyle, props.barType),
+                className: progressClasses(props.bootstrapStyle, props.barType),
                 onClick: () => executeMicroflow(props.microflowProps.actionname, props.microflowProps.guid),
                 style: { width: progressValue(props.percentage) + "%" }
             },
-            (() => progressLabel(props.label, progressValue(props.percentage)))()
+            progressLabel(props.label, progressValue(props.percentage))
         )
     );
 
-const progressClass = (bootstrapStyle: string, barType: string) => {
-    return classNames("progress-bar", {
+const widgetClasses = (percentage: number, colorSwitch: number, actionName: string) =>
+    classNames(
+        "progress",
+        "widget-progressbar", {
+            "widget-progressbar-text-contrast": progressValue(percentage) < colorSwitch,
+            "widget-progressbar-clickable": actionName !== ""
+        }
+    );
+
+const progressClasses = (bootstrapStyle: string, barType: string) =>
+    classNames("progress-bar", {
         "progress-bar-info": bootstrapStyle === "info",
         "progress-bar-danger": bootstrapStyle === "danger",
         "progress-bar-warning": bootstrapStyle === "warning",
@@ -43,7 +50,6 @@ const progressClass = (bootstrapStyle: string, barType: string) => {
         "progress-bar-striped": barType === "striped",
         "progress-bar-striped active": barType === "animated"
     });
-};
 
 const progressValue = (progressAttributeValue: number) => {
     const maximumValue = 100;

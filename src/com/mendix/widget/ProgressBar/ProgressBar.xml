@@ -9,7 +9,7 @@
         <property key="progressAttribute" type="attribute">
             <caption>Progress attribute</caption>
             <category>Data source</category>
-            <description>The attribute that contains the progress percentage.</description>
+            <description>The attribute that contains the progress percentage from 0 to 100</description>
             <attributeTypes>
                 <attributeType name="Integer" />
                 <attributeType name="Decimal" />
@@ -27,9 +27,9 @@
         <property key="description" type="translatableString" required="false">
             <caption>Description</caption>
             <category>Display</category>
-            <description>The text to display in the bar after the percentage value.</description>
+            <description>The text to display in the bar after the percentage value</description>
         </property>
-        <property key="width" type="integer" defaultValue="250">
+        <property key="width" type="integer" defaultValue="0">
             <caption>Width</caption>
             <category>Display</category>
             <description>The width in pixels of the widget. If 0 it will be 100%</description>
@@ -37,7 +37,7 @@
         <property key="textColorSwitch" type="integer" defaultValue="50">
             <caption>Colour switch value</caption>
             <category>Display</category>
-            <description>The percentage at which the text gets a contrast colour (class) from black to white.</description>
+            <description>The percentage at which the text gets a contrast colour (class) from black to white</description>
         </property>
         <property key="barType" type="enumeration" required="true" defaultValue="default">
             <caption>Type</caption>
@@ -52,13 +52,13 @@
         <property key="onclickMicroflow" type="microflow" required="false">
             <caption>Click microFlow</caption>
             <category>Behaviour</category>
-            <description>If set the microflow will be called on click on the progress bar</description>
+            <description>When set the microflow will be called on click on the progress bar</description>
             <returnType type="Void" />
         </property>
         <property key="classBar" type="enumeration" required="true" defaultValue="none">
             <caption>Bar style</caption>
             <category>Display</category>
-            <description>The color of the progress bar using bootstrap classes. Only used when 'Style attribute' is not set.</description>
+            <description>The color of the progress bar using bootstrap classes. Only used when 'Style attribute' is not set</description>
             <enumerationValues>
                 <enumerationValue key="none">None</enumerationValue>
                 <enumerationValue key="success">Success</enumerationValue>

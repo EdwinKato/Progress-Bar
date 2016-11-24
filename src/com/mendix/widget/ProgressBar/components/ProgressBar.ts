@@ -4,6 +4,7 @@ import * as classNames from "classnames";
 export interface MicroFlowProps {
     name: string;
     guid: string;
+    origin?: mxui.lib.form._FormBase;
 }
 
 export interface ProgressBarProps {
@@ -72,6 +73,7 @@ const executeMicroflow = (props: MicroFlowProps) => {
             error: (error: Error) => {
                 window.mx.ui.error(`Error while executing microflow: ${props.name}: ${error.message}`);
             },
+            origin: props.origin || undefined,
             params: {
                 actionname : props.name,
                 applyto: "selection",

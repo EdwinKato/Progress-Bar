@@ -89,8 +89,8 @@ export class MxDataMock implements mx.data {
         error?: (e: Error) => void,
         onValidation?: (validations: mendix.lib.ObjectValidation[]) => void,
     }, scope?: any): void {
-        if (action.params.actionname === "no_microflow") {
-            action.error(new Error("microflow does not exist"));
+        if (action.params.actionname === "error_microflow") {
+            action.error(new Error("Mock some error that is thrown in the Mendix runtime"));
         } else {
             setTimeout(() => action.callback && action.callback(null));
         }

@@ -63,8 +63,8 @@ class ProgressBar extends WidgetBase {
 
     private createOnClickProps(): MicroFlowProps {
         return ({
-            actionname: this.onclickMicroflow,
-            guid: this.contextObject ? this.contextObject.getGuid() : undefined
+            guid: this.contextObject ? this.contextObject.getGuid() : undefined,
+            name: this.onclickMicroflow
         });
     }
 

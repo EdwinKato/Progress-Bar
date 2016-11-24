@@ -50,19 +50,13 @@ describe("Progress bar", () => {
     it("should render with the set width", () => {
         const barWrapper = renderProgressBar({ colorSwitch, label: "progress", percentage: 200, width: 120 });
 
-        expect(barWrapper).toMatchStructure(
-            DOM.div({ className: "progress" , style: { width: "120px" } }
-            )
-        );
+        expect(barWrapper.prop("style").width).toBe(120);
     });
 
-    it("should render with 100% width if passed width is equal to zero", () => {
+    it("should render without width if passed width is equal to zero", () => {
         const barWrapper = renderProgressBar({ colorSwitch, label: "progress", percentage: 200, width: 0 });
 
-        expect(barWrapper).toMatchStructure(
-            DOM.div({ className: "progress" , style: { width: "100%" } }
-            )
-        );
+        expect(barWrapper.prop("style").width).toBe(null);
     });
 
     describe("label color", () => {
@@ -147,27 +141,25 @@ describe("Progress bar", () => {
 
     it("should respond to click event", () => {
         spyOn(window.mx.data, "action").and.callThrough();
-        const microflowProps: MicroFlowProps = { actionname: "m", guid: "1" };
-        const barWrapper = renderProgressBar({ percentage, colorSwitch, microflowProps });
-        const bar = barWrapper.childAt(0);
+        const validMicroflow: MicroFlowProps = { name: "m", guid: "2" };
+        const barWrapper: any = renderProgressBar({ percentage, colorSwitch, microflowProps: validMicroflow });
 
-        bar.props().onClick();
+        barWrapper.props().onClick();
 
         expect(window.mx.data.action).toHaveBeenCalled();
         expect(window.mx.data.action).toHaveBeenCalledWith({ error: jasmine.any(Function), params: {
-            actionname: microflowProps.actionname,
+            actionname: validMicroflow.name,
             applyto: "selection",
-            guids: [ microflowProps.guid ]
+            guids: [ validMicroflow.guid ]
         } });
     });
 
     it("should not run onclick event if action name is empty", () => {
         spyOn(window.mx.data, "action").and.callThrough();
-        const microflowProps: MicroFlowProps = { actionname: "", guid: "1" };
-        const barWrapper = renderProgressBar({ percentage, colorSwitch, microflowProps });
-        const bar = barWrapper.childAt(0);
+        const emptyMicroflow: MicroFlowProps = { name: "", guid: "3" };
+        const barWrapper: any = renderProgressBar({ percentage, colorSwitch, microflowProps: emptyMicroflow });
 
-        bar.props().onClick();
+        barWrapper.props().onClick();
 
         expect(window.mx.data.action).not.toHaveBeenCalled();
     });
@@ -175,15 +167,14 @@ describe("Progress bar", () => {
     it("should show error to click event", () => {
         spyOn(window.mx.data, "action").and.callThrough();
         spyOn(window.mx.ui, "error").and.callThrough();
-        const microflowProps: MicroFlowProps = { actionname: "no_microflow", guid: "1" };
-        const barWrapper = renderProgressBar({ percentage, colorSwitch, microflowProps });
-        const bar = barWrapper.childAt(0);
+        const errorMicroflow: MicroFlowProps = { name: "error_microflow", guid: "4" };
+        const barWrapper: any = renderProgressBar({ percentage, colorSwitch, microflowProps: errorMicroflow });
 
-        bar.props().onClick();
+        barWrapper.props().onClick();
 
         expect(window.mx.data.action).toHaveBeenCalled();
         expect(window.mx.ui.error).toHaveBeenCalledWith(
-            "Error while executing microflow: no_microflow: microflow does not exist"
+            "Error while executing microflow: error_microflow: Mock some error that is thrown in the Mendix runtime"
         );
     });
 

@@ -2,7 +2,7 @@ import { DOM } from "react";
 import * as classNames from "classnames";
 
 export interface MicroFlowProps {
-    actionname: string;
+    name: string;
     guid: string;
 }
 
@@ -19,8 +19,8 @@ export interface ProgressBarProps {
 export const ProgressBar = (props: ProgressBarProps) =>
     DOM.div(
         {
-            className: widgetClasses(props.percentage, props.colorSwitch, props.microflowProps.actionname),
-            onClick: () => executeMicroflow(props.microflowProps.actionname, props.microflowProps.guid),
+            className: widgetClasses(props.percentage, props.colorSwitch, props.microflowProps),
+            onClick: () => executeMicroflow(props.microflowProps),
             style: { width: props.width !== 0 ? props.width : null }
         },
         DOM.div(
@@ -32,12 +32,12 @@ export const ProgressBar = (props: ProgressBarProps) =>
         )
     );
 
-const widgetClasses = (percentage: number, colorSwitch: number, actionName: string) =>
+const widgetClasses = (percentage: number, colorSwitch: number, microflow: MicroFlowProps) =>
     classNames(
         "progress",
         "widget-progressbar", {
             "widget-progressbar-text-contrast": progressValue(percentage) < colorSwitch,
-            "widget-progressbar-clickable": actionName !== ""
+            "widget-progressbar-clickable": microflow && microflow.name !== ""
         }
     );
 
@@ -66,16 +66,16 @@ const progressValue = (progressAttributeValue: number) => {
     return progressAttributeValue;
 };
 
-const executeMicroflow = (actionname: string, guid: string) => {
-    if (actionname && guid) {
+const executeMicroflow = (props: MicroFlowProps) => {
+    if (props && props.name && props.guid) {
         window.mx.data.action({
             error: (error: Error) => {
-                window.mx.ui.error(`Error while executing microflow: ${actionname}: ${error.message}`);
+                window.mx.ui.error(`Error while executing microflow: ${props.name}: ${error.message}`);
             },
             params: {
-                actionname,
+                actionname : props.name,
                 applyto: "selection",
-                guids: [ guid ]
+                guids: [ props.guid ]
             }
         });
     }

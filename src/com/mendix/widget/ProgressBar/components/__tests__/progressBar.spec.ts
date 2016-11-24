@@ -22,12 +22,19 @@ describe("Progress bar", () => {
     });
 
     it("has progress bar structure", () => {
-        expect(progressBarWrapper).toMatchStructure(
-            DOM.div({ className: "progress" },
-                DOM.div({ className: "progress-bar" })
+        const plainProgressBar = renderProgressBar({ colorSwitch: 0, percentage: 80, width: 0 });
+
+        expect(plainProgressBar).toBeElement(
+            DOM.div({
+                    className: "widget-progressbar progress",
+                    onClick: jasmine.any(Function) as any,
+                    style: { width: null }
+                },
+                DOM.div({ className: "progress-bar", style: { width: jasmine.any(String) } })
             )
         );
     });
+
 
     it("should render the progress label", () => {
         const bar = renderProgressBar({ percentage, colorSwitch, label: "progress" });

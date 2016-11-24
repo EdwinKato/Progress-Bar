@@ -1,17 +1,19 @@
-### Description
-
-Displays progress based on value from 0 to 100
+# Progress bar
+Displays progress bar for values 0 to 100.
 
 ## Features
+* Show percentage of progress based on value
+* Render different bar types that is; default, striped and animated
+* Show different bar colors that is; success, info, warning, danger
+* Render different widths of the progress bars
 
-Different bar types that is; default, striped, animated and
-Different bar colors that is; success, info, warning, danger
-
-### Dependencies
-
+## Dependencies
 Mendix 6
 
-### Bugs & Issues
+## Demo project
+https://progressbar-demo.mxapps.io/
 
-Bugs and issues can reported via the github issue tracker:
-[https://github.com/EdwinKato/Bootstrap-Progress-Bar/issues] (https://github.com/EdwinKato/Bootstrap-Progress-Bar/issues)
+## Issues
+Please report issues at https://github.com/mendixlabs/progress-bar/issues.
+
+
